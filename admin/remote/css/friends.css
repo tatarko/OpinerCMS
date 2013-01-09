@@ -1,0 +1,44 @@
+#friendsPanel { width: 180px; float: left; }
+#friendsPanel p { margin: 0; padding: 0; }
+#friendsPanel h3 { margin: 10px 0 2px; }
+#friendsImage { float: left; border: 1px solid #eee; padding: 2px; margin: 1px 3px 1px 0; width: 24px; height: 24px; }
+#status { font: italic 11px Calibri, Tahoma, serif; margin: 2px 0; }
+#status textarea { width: 170px; height: 50px; border: 1px solid #eee; color: #999; padding: 2px; font: italic 11px Calibri, Tahoma, serif; }
+#status input { width: 75px; border: 1px solid #e7e7e7; color: #999; background: #fafafa; padding: 2px; text-align: center; font: italic 11px Calibri, Tahoma, serif; -moz-border-radius: 2px; -webkit-border-radius: 2px; margin: 1px 2px; }
+#friendsBoard { padding: 0 0 0 180px; }
+.status {
+	border-left: 1px solid #ddd;
+	margin: 0 0 32px 42px;
+	padding: 0 6px;
+	font: normal 11px 'Verdana', 'Calibri', 'Tahoma', sans-serif;
+	max-width: 480px;
+}.gravatar {
+	border: 1px solid #ddd;
+	padding: 1px;
+	width: 30px;
+	height: 30px;
+	float: left;
+}
+.status .name { font-size: 12px; }
+.status .meta {
+	font-size: 10px;
+	font-style: normal;
+}
+.status .subStatus {
+	margin: 6px 0 6px 25px;
+	color: #888;
+}
+.status .subStatus .emoticon,
+#message .emoticon,
+.status .comment .emoticon {
+	width: 12px;
+	height: 12px;
+}
+.status .comment {
+	margin: 4px 0;
+	padding: 4px 6px;
+	color: #444;
+}
+.status .comment p {
+	margin: 2px 0;
+}

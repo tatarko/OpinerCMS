@@ -1,0 +1,230 @@
+.pavio {
+	background: #999;
+	display: block;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	text-align: left;
+}
+.pavio .pattern {
+	display: block;
+	float: left;
+	text-align: center;
+	width: 80%;
+}
+
+.pavio .image {
+	display: inline-block;
+	background: #fff;
+	padding: 10px;
+	text-align: center;
+	margin: 10px;
+	box-shadow: 0 0 10px 6px #666;
+	-moz-box-shadow: 0 0 10px 6px #666;
+	-webkit-box-shadow: 0 0 10px 6px #666;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.pavio .comments {
+	width: 20%;
+	height: 100%;
+	float: right;
+	background: #fff;
+	box-shadow: 0 0 10px 6px #666;
+	-moz-box-shadow: 0 0 10px 6px #666;
+	-webkit-box-shadow: 0 0 10px 6px #666;
+        overflow-y: auto;
+}
+
+.pavio .comments h1 {
+	margin: 0;
+	padding: 0 3%;
+	display: block;
+	width: 94%;
+	background: #bbb url('bg.png') repeat-x left top;
+	color: #666;
+	text-shadow: 1px 1px 0 #ddd;
+	font: bold italic 16px 'Trebuchet MS', Arial, sans-serif;
+	line-height: 32px;
+	height: 32px;
+	border: 0;
+}
+
+.pavio .comments form {
+	margin: 0;
+	padding: 0;
+	display: block;
+	width: 100%;
+}
+
+.pavio .comments form .input {
+	margin: 0;
+	padding: 7px 5%;
+	display: block;
+	height: 51px;
+	width: 90%;
+	background: #eee url('bg.png') repeat-x left top;
+	border: none;
+	font: normal 13px 'Trebuchet MS', Arial, sans-serif;
+	line-height: 17px;
+        color: #666;
+        text-shadow: 1px 1px 0 #fff;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.pavio .comments form .submit {
+	margin: 0 10%;
+	padding: 0;
+	display: block;
+	width: 80%;
+	height: 24px;
+	background: #888 url('bg.png') repeat-x left top;
+	border: none;
+	font: normal 14px 'Trebuchet MS', Arial, sans-serif;
+	line-height: 24px;
+	color: #fff;
+	text-shadow: 1px 1px 0 #666;
+	cursor: pointer;
+	border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 0 0 5px 5px;
+	box-shadow: 0 0 2px 1px #bbb;
+	-moz-box-shadow: 0 0 2px 1px #bbb;
+	-webkit-box-shadow: 0 0 2px 1px #bbb;
+}
+
+.pavio .comments_box { }
+
+.pavio .comments .comment {
+	background: #eee url('bg.png') repeat-x left top;
+	margin: 15px 10px;
+	padding: 4px 8px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	box-shadow: 0 0 3px 2px #bbb;
+	-moz-box-shadow: 0 0 3px 2px #bbb;
+	-webkit-box-shadow: 0 0 3px 2px #bbb;
+}
+
+.pavio .comments .comment .entry {
+	margin: 0 0 4px;
+	padding: 0;
+	font: normal 12px 'Trebuchet MS', Arial, sans-serif;
+	line-height: 18px;
+        text-align: justify;
+        color: #666;
+        text-shadow: 1px 1px 0 #fff;
+}
+
+.pavio .comments .comment .metainfo {
+	margin: 0;
+	padding: 0 15px;
+	font: italic 8px 'Trebuchet MS', Arial, sans-serif;
+	line-height: 12px;
+	color: #444;
+}
+
+.pavio .headImage {
+	background: #fff;
+	max-width: 100%;
+	max-height: 90%;
+}
+
+.pavio .description {
+	font: italic 12px 'Trebuchet MS', Arial, sans-serif;
+	line-height: 16px;
+	height: 16px;
+	color: #444;
+	margin: 10px 0 0 0;
+	padding: 0;
+}
+
+.pavio .meta {
+	font: italic 10px 'Trebuchet MS', Arial, sans-serif;
+	line-height: 14px;
+	height: 14px;
+	color: #666;
+	padding: 0;
+	margin: 0;
+}
+
+
+
+/* Prehliadanie v galérií */
+
+a[rel*='pavio'] {
+        text-decoration: none;
+	display: inline-block;
+	border: 1px solid #ddd;
+	padding: 7px;
+	margin: 5px;
+	background: #fff;
+}
+
+#content a[rel*='pavio'] img,
+a[rel*='pavio'] img {
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+
+
+/* Pavio aplikácia */
+
+.pavio_present {
+	width: 240px;
+	float: left;
+	margin: 10px;
+	background: #ddd url('bg.png') repeat-x left top;
+	padding: 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.pavio_present a {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	background: transparent;
+	display: block;
+	text-decoration: none;
+}
+
+.pavio_present a:hover {
+	text-decoration: none;
+}
+
+.pavio_present a:hover img {
+	text-decoration: none;
+}
+
+.pavio_present a:hover p {
+	text-decoration: none;
+}
+
+.pavio_clean {
+	display: block;
+	clear: both;
+	line-height: 1px;
+	font-size: 1px;
+	height: 1px;
+}
+
+.pavio_present a p {
+	margin: 10px 0 0 0;
+	font: italic 13px 'Trebuchet MS', Arial, sans-serif;
+	color: #666;
+	text-shadow: 1px 1px 0 #eee;
+	text-decoration: none;
+	text-align: center;
+}

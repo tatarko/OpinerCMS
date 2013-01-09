@@ -1,0 +1,76 @@
+.articleImage {
+	margin: 0 15px 5px 0;
+	float: left;
+	max-width: 200px;
+}
+
+.cleanL {
+	clear: left;
+}
+
+.siteAuthor {
+	color: red;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.siteModerator {
+	color: green;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.imagePreview {
+	max-height: 90px;
+	background: #f7f7f7;
+	padding: 5px;
+	border: 1px solid #ddd;
+	margin: 7px;
+}
+
+.infobox {
+	width: 100%;
+}
+
+.infobox td {
+	vertical-align: top;
+}
+
+.infobox table td {
+	padding: 3px 6px;
+	vertical-align: top;
+}
+
+ul.opinerpaging {
+	margin: 0;
+	padding: 0;
+}
+
+ul.opinerpaging li {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+a.opinerpaging {
+	display: inline-block;
+	background: #e7e7e7;
+	padding: 1px auto;
+	margin: 2px;
+	width: 30px;
+	text-align: center;
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	box-shadow: 1px 1px 3px #ccc;
+	-moz-box-shadow: 1px 1px 3px #ccc;
+	-webkit-box-shadow: 1px 1px 3px #ccc;
+}
+a.opinerpaging:hover, a.opinerpagingactive {
+	background: #ddd;
+	box-shadow: 1px 1px 3px #bbb;
+	-moz-box-shadow: 1px 1px 3px #bbb;
+	-webkit-box-shadow: 1px 1px 3px #bbb;
+}

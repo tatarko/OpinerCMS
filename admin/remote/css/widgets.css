@@ -1,0 +1,64 @@
+#content { padding: 15px 235px 15px 15px; }
+#plugins {
+	width: 200px;
+	float: right;
+	padding: 10px;
+	background: #F2F4F9;
+	border-left: 1px solid #CED8E5;
+	top: 32px;
+	height: 100%;
+	right: 0;
+	position: fixed;
+	background: #DCE5F4 url('../img/bg.png') center top repeat-x;
+	z-index: 96;
+	box-shadow: -3px 0 5px #999;
+	-webkit-box-shadow: -3px 0 5px #999;
+	-moz-box-shadow: -3px 0 5px #999;
+}
+/*#panel #righter { padding-right: 230px; }
+#menu p { margin-right: 230px; }*/
+.isDisabled { opacity: 0.6; }
+.sidebarLink {
+	font: italic 12px 'Segoe UI', Arial, sans-serif;
+	margin: 0 5px;
+}
+.sidebarLink img { margin: -2px 3px; }
+.sidebarPlugin {
+	width: 200px;
+	vertical-align: top;
+}
+.icons {float:right;}
+.icons img {
+	height: 12px;
+	width: 12px;
+	border: 0;
+	margin: -1px;
+}
+fieldset strong {font-family: Verdana; font-size: 12px; padding: 20px 0 10px; display: block;}
+.sidebarPlugin form strong { margin: 8px 0 4px; }
+.sidebarPlugin input[type="text"],
+.sidebarPlugin input[type="password"],
+.sidebarPlugin select,
+.sidebarPlugin textarea {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	background: #fff;
+	font-family: Verdana, Georgia, Helvetica, sans-serif;
+	color: #666;
+	border: 1px solid #ccc;
+	padding: 4px;
+	margin: 4px 0 12px;
+	width: 190px;
+}
+.sidebarPlugin h3 {
+	margin: 4px 0 2px
+	font-size: 14px;
+}
+.sidebarPlugin textarea { width: 190px; height: 50px; min-height: 50px; }
+.sidebarPlugin li {
+	font-family: Verdana, sans-serif;
+	font-size: 12px;
+	margin-left: 30px;
+}
+.sidebarPlugin ul { margin: 5px 0; }
+.icons { text-align: right; }

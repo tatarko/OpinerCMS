@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /codes/
+Disallow: /languages/
+Disallow: /login/

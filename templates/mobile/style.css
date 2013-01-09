@@ -1,0 +1,45 @@
+/*
+ * Opiner CMS
+ * Default Mobile View
+ * by Tomáš Tatarko
+ * http://opiner-cms.net/
+ * http://tatarko.sk/
+ * 2011 (c) Všetky práva vyhrádené
+ */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ul, li, dd, dl, dt, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin:0; padding:0; border:0; outline:0; font-size: 1em; }
+body { background-color: #fff; font: normal 12px 'Trebuchet MS', Arial, sans-serif; color: #333; line-height: 1.4em; }
+h1 { font-size: 16px; margin: 5px 0; }
+h2 { font-size: 15px; margin: 15px 0 5px; }
+h3 { font-size: 14px; margin: 15px 0 5px; }
+h4 { font-size: 13px; margin: 15px 0 5px; }
+p { margin: 8px 0; text-align: justify; }
+a { color: #288CC1; text-decoration: underline; }
+a:hover { color: #35BBFF; text-decoration: none; }
+input { border: 1px solid #666; background: #f7f7f7 url('bg.png') repeat-x left top; margin: 5px 10px 3px 0; padding: 4px; font-size: 14px; color: #666; line-height: 14px; }
+img { max-width: 230px; }
+
+#exitmobileview { display: block; padding: 4px 8px; font-size: 9px; line-height: 9px; text-align: right; background: #ccc url('bg.png') repeat-x left top; color: #666; }
+#sitename a { display: block; font-size: 18px; line-height: 18px; background: #154C8E url('bg.png') repeat-x left top; padding: 8px; color: #fff; text-align: center; }
+#menu { display: block; }
+#menu li { display: block; list-style: none; }
+#menu li a { display: block; font-size: 10px; line-height: 10px; padding: 7px; background: #EFF1FF url('bg.png') repeat-x left top; border-bottom: 1px solid #D8DEFF; color: #8A97EA; }
+#content { padding: 0 5px; }
+
+.post {}
+.post .meta { background: #eee; padding: 4px; line-height: 1em; color: #777; margin-bottom: 7px; }
+.post .meta a { color: #999; }
+
+.comment { margin: 15px 0 0; }
+.comment .gravatar { margin: 0; width: 24px; height: 24px; float: left; padding: 1px; border: 1px solid #ccc; display: block; background: #fff; }
+.comment h4 { line-height: 28px; display: block; height: 28px; margin: 0; background: #7190CE url('bg.png') repeat-x left top; padding: 0 5px 0 33px; color: #fff; }
+.comment h4 a { color: #fff; }
+.comment .content { clear: left; background: #F7FAFF; padding: 3px 6px; }
+.comment .content p { margin: 3px; }
+.comment .meta { background: #E5F0FF; padding: 4px; font-size: 10px; line-height: 10px; }
+
+.articleImage { float: none; max-width: 200px; max-height: 80px; padding: 5px; border: 1px solid #ccc; margin: 0 auto; display: block; }
+.imagePreview { padding: 2px; border: 1px solid #ccc; margin: 0 1px; }
+.siteAuthor { color: #CC3030; }
+.siteModerator { color: #30CC3D; }
+.OpinerGalleryRow1 { margin: 0; padding: 0; }

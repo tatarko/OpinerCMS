@@ -1,0 +1,9 @@
+#filemanager {}
+#filemanager td{font-family: Verdana, Georgia, sans-serif; font-size: 12px; padding: 4px 10px; text-align: left; vertical-align: bottom;}
+#filemanager a{text-decoration:none;color:#1d6990;}
+#filemanager .actions{text-align:right;margin:10px 3px 0;padding:2px 0 0;border-top:1px solid #1d6990;}
+#filemanager .actions img{margin-left:4px; padding: 2px;}
+#fileman_lista {font: 12px Verdana, Georgia; color: #444; background:#eff6fa; margin: 20px 0; padding: 4px 10px;border: 1px solid #cadce6; border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;text-align:left;}
+#fileman_lista a{color:#444;}
+#fileman_lista .lista_icon{border:0;margin:-3px 7px -3px 0;width:16px;height:16px;}
+#fileman_lista .sep {margin:-3px 15px;font-size:16px;}

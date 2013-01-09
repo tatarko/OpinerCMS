@@ -1,0 +1,140 @@
+/*
+ * Opiner Default
+ * design by Ovalio studio
+ * 2010 Mirk Belly
+ * 2012 Tomas Tatarko
+*/
+
+* {margin: 0; padding: 0;}
+
+/*** Body ***/
+body {background:  #fff url('images/background.png') repeat center top; text-align: center; font-family: "Georgia", Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #444;}
+h1, h2, h3, h4 {font-family: "Verdana", sans-serif; line-height: 1.2em;}
+h1 {margin: 10px 0 25px; font-size: 36px; color: #222; text-align: left; font-weight: bold;}
+h2 {margin: 20px 0 15px; font-size: 28px; color: #222; text-align: left; font-weight: normal; padding: 0 0 4px;}
+h3 {margin: 25px 0 15px; font-size: 22px; color: #222; font-weight: normal; text-align: left;}
+h4 {margin: 25px 0 5px; font-size: 16px; color: #222; font-weight: normal; text-align: left;}
+em {color: #222; font-style: italic; font-size: 16px;}
+a {text-decoration: none; color: #135985;}
+a:hover {text-decoration: underline;}
+p {margin: 5px 0 25px;}
+strong {color: #111; font-size: 16px;}
+li {font-weight: normal; text-decoration: none; font-size: 16px; line-height: 1.6em;}
+textarea {-moz-border-radius: 6px; -webkit-border-radius: 6px; border: 1px solid #ddd; font-family: "Georgia", Tahoma, Helvetica, sans-serif; color: #222; padding: 6px; font-size: 16px; height: 120px;}
+input[type="text"] {-moz-border-radius: 6px; -webkit-border-radius: 6px; width: 200px; border: 1px solid #ddd; background: white; margin: 5px 0; padding: 5px; font-family: "Georgia", Tahoma, Helvetica, sans-serif; font-size: 14px; color: #444;}
+input[type="password"] {-moz-border-radius: 6px; -webkit-border-radius: 6px; border: 1px solid #ddd; background: white; margin: 2px 0; padding: 5px; font-family: "Georgia", Tahoma, Helvetica, sans-serif; font-size: 16px; color: #222;}
+input[type="submit"] {background: #f2f2f2; font-family: Tahoma, sans-serif; font-weight: bold; font-size: 15px; display: inline-block; padding: 5px 14px 6px; color: #666; text-decoration: none; font-weight: bold; border: 1px solid; border-color: #ddd #999 #999 #ddd;  -webkit-box-shadow: 1px 1px 1px 0px #aaa; line-height: 1; -moz-border-radius: 14px; -webkit-border-radius: 14px; cursor: pointer;}
+input[type="submit"]:hover {border-color: #999 #ddd #ddd #999; padding: 6px 15px 5px}
+.opiner-poll {-moz-border-radius: 6px; -webkit-border-radius: 6px; margin: 0 0 15px; padding: 10px;}
+.opiner-poll-hr {margin: 10px 0 5px; border-bottom: 1px dotted #888;}
+.opiner-poll-title {color: #3173a1; margin: 0 0 12px; font-size: 14px; border: none;}
+.opiner-poll-vote {margin: 5px 0 0; border: none;}
+
+
+
+/*** Container ***/
+
+#container { width: 100%;min-height: 100%; }
+
+/*** Header ***/
+
+#header { height: 150px; background:url('images/header.jpg') no-repeat center top;}
+#name {margin: 0 auto; width: 960px;}
+#logo {padding: 30px 0 0; text-align: left;}
+#logo h1 {font-family: "Verdana", sans-serif; font-size: 40px; font-weight: bold; margin: 0;line-height:60px;}
+#logo h1 a { text-decoration: none; color: #f7f7f7; text-shadow: 2px 2px 1px #111; }
+#logo h1 a:hover {color: #fff; }
+
+/*** Menu ***/
+
+#menu { height: 35px; background: #ddd url('../../admin/remote/img/bg.png') repeat-x left top; margin: 25px 0 0; -moz-box-shadow: 0px 0px 12px 1px #666; -webkit-box-shadow: 0px 0px 12px 1px #666; }
+.menu { width: 960px; margin: 0 auto; text-align: left; }
+.menu ul { }
+.menu li { display: block; float: left; }
+.menu li a { font: normal 16px "Helvetica", sans-serif; display: block; padding: 0 10px; height: 35px; line-height: 35px; text-decoration: none; color: #555;  text-shadow: 1px 1px 0 #fff; }
+.menu li a:hover { background: #eee url('../../admin/remote/img/bg.png') repeat-x left top; color: #666; padding: 0 9px; border-right: 1px solid #ddd; border-left: 1px solid #ddd; }
+
+/*** Content ***/
+
+#main { margin: 45px auto 15px; width: 960px; text-align: left; box-shadow: 0px 0px 8px 1px #888; -moz-box-shadow: 0px 0px 8px 1px #888; -webkit-box-shadow: 0px 0px 8px 1px #888; -moz-border-radius: 8px; -webkit-border-radius: 8px; background: white; }
+#content { line-height: 1.6em; letter-spacing: 0.6; padding: 20px; width: 600px; float: left; }
+#content ul {margin: 0px;}
+#content .default .Texyla div .toolbar ul {margin: 0;}
+#content img {border: none; margin: 3px 10px 0 0;}
+#content p img[src^="codes/texyla/emoticons/silk/"] {border: none; margin: 0; padding: 0;}
+#post {margin-bottom: 30px;}
+#post h1 {margin: 0 0 6px;}
+#post h1 a {line-height: 1.2em; font-size: 36px; font-weight: bold; color: #222; text-decoration: none;}
+#post h1 a:hover {background: #eef6fb;}
+.content p {font-family: Georgia, Verdana, sans-serif; font-size: 16px; margin: 5px 0 20px; color: #333; line-height: 1.6em; letter-spacing: 0.6; text-align: justify; text-indent: 35px;}
+.meta {padding: 5px 0 0; font-size: 12px; font-family: "Verdana", sans-serif; }
+.meta a {text-decoration: none; color: #135985; font-weight: bold;}
+.meta a:hover {color: black; text-decoration: underline;}
+.comments {float: right;}
+.siteAuthor {color: #ba3a00; font-weight: normal;}
+
+#sidebar { float: right; padding: 10px 20px 30px 20px; width: 280px; }
+#sidebar li { margin: 1px 0 1px 15px; list-style: none; }
+
+/*** Footer ***/
+
+#footer, .push { clear: both; font: normal 10px "Georgia", sans-serif; line-height: 1.3em; text-shadow: 1px 1px 0 #fff; color: #444; margin-bottom: 20px;}
+#footer a {color: #666; font-weight: bold;}
+
+/* Štýlovanie komentárov / Style comments */
+
+.commentAuthor {
+	border-bottom: 1px solid #ccc;
+}
+
+.commentMeta p {
+	margin: 0 0 20px;
+}
+
+.meta-comments {
+	border-top: 1px solid #ccc;
+	margin: 10px 0;
+	padding: 3px 0 9px 0;
+	color: #777;
+	font-family: bold 12px "Verdana", Tahoma, Arial, Geneva, sans-serif;
+	line-height: 12px;
+	width: 100%;
+	clear: right;
+}
+
+.meta-comments a {
+	color: #3173a1;
+	margin: 1px;
+	text-decoration: none;
+}
+
+.meta-comments .comments, .meta-comments .comments a { font-family: "Tahoma", Helvetica, Arial, Verdana, sans-serif;; font-weight: normal; font-size: 9px; text-decoration: none; cursor: pointer; letter-spacing: 0.1em; }
+.meta-comments .comments a:hover {color: #3173a1; text-decoration: underline;}
+.post .date {
+	font-family: "Georgia", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 10px;
+	font-style: italic;
+	font-weight: normal;
+	color: #888;
+	letter-spacing: 0.1em;
+}
+
+#content img.gravatar {
+	float: right;
+	margin: 0 0 5px 10px;
+	padding: 3px;
+	height: 40px;
+	width: 40px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.clear {
+	clear: both;
+	font-size: 1px;
+	height: 1px;
+	line-height: 1px;
+	display: block;
+} 

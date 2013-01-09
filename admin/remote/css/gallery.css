@@ -1,0 +1,67 @@
+div.album {
+	background: #DCE5F2 url('../img/bg.png') repeat-x center top;
+	width: 29%;
+	min-height: 200px;
+	float: left;
+	padding: 8px 16px;
+	margin: 6px;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
+div.album .img1 {
+	float: left;
+	margin: 0;
+}
+
+div.album .img2 {
+	float: left;
+	margin: -110px 0 0 30px;
+}
+
+div.album .img3 {
+	float: left;
+	margin: -110px 0 10px 60px;
+}
+
+img.album {
+	float: left;
+	position: relative;
+	height: 120px;
+	border: 1px solid #666;
+	background: #fff url('../img/bg.png') repeat-x center bottom;
+	padding: 4px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.notdisplay {
+	display: none;
+}
+
+div.album h3 {
+	float: left;
+	margin: 0 0 5px 0;
+	font: bold 1.8em 'Myriad Web Pro', Arial, sans-serif;
+	text-shadow: 1px 1px 1px #fff;
+}
+
+div.album .album_icons {
+	float: right;
+}
+
+div.album .album_icons img {
+	margin: 0;
+	padding: 1px;
+}
+
+
+#hideForm { display: none; }
+#addMedium input[type="text"], #addMedium textarea { display: block; }
+#editGallery td { text-align: center; width: 33%; background: #f0f0f0; padding: 7px; vertical-align: top; }
+#editGallery h3 { margin-bottom: 3px; padding: 0; font-size: 1.3em; font-weight: bold; text-align: center; }
+#editGallery .Image { background: #fff; border: 1px solid #e7e7e7; padding: 5px; margin-bottom: 5px; max-height: 160px; max-width: 225px; }
+#editGallery input, #editGallery textarea { display: block; width: 96%; }
+img[src^="admin/images/"] { margin-bottom: -3px; }

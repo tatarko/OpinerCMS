@@ -1,0 +1,588 @@
+
+/* Pomôcky */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.cleaner {
+	 clear: both;
+	 height: 1px;
+	 line-height: 1px;
+}
+.right {
+       text-align: right;
+}
+
+
+/* Základné elementy */
+body {
+	font: 13px Helvetica, sans-serif;
+	color: #626262;
+	background: white;
+}
+
+table, select, input, textarea {
+	font-size: 12px;
+}
+
+textarea {
+	min-height: 120px;
+}
+
+input, textarea {
+	font-family: 'Courier New', mono-space;
+	padding: 4px;
+}
+
+form {
+	margin: 0;
+	padding: 0;
+}
+h1, h2, h3 {
+	text-align: left;
+	margin: 0 0 20px;
+	padding-bottom: 2px;
+	text-decoration: none;
+	font-family: "Tahoma", 'Arial Narrow', serif;
+	font-weight: normal;
+	color: #666;
+}
+
+h1 {
+	font-family: "Verdana", "Tahoma", sans-serif;
+	font-size: 26px;
+	margin: 0 0 40px;
+}
+
+h2 {
+	font-family: "Verdana", "Segoe UI", "Tahoma", sans-serif;
+	font-size: 16px;
+	border-bottom: 1px solid #ddd;
+	margin: 15px 0 10px 0;
+}
+
+h3 {
+	font-family: "Verdana", "Segoe UI", "Tahoma", sans-serif;
+	font-size: 14px;
+	color: #4294ba;
+}
+
+p {
+	margin-bottom: 1.5em;
+	font: normal 12px "Verdana", "Lucida Sans Unicode", 'Lucida Granede', Helvetica, sans-serif;
+	line-height: 1.4em;
+}
+
+blockquote, code {
+	margin: 0 0 0 25px;
+	padding: 8px 10px;
+	border: 1px solid #B8CAD8;
+	border-left: 3px solid #6387A5;
+	background: #e7eef3;
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+}
+
+a {
+	color: #3b96b0;
+	text-decoration: none;
+	outline: 0;
+}
+
+a:hover {
+	color: #1b6c83;
+}
+
+em {
+	margin: 5px 0;
+}
+
+fieldset {
+	margin: 0 0 20px;
+	padding: 8px 10px;
+	border: none;
+}
+
+input[type="text"], input[type="password"], select, textarea {
+	margin-bottom: 5px;
+	width: 400px;
+	font-family: Verdana, Georgia, sans-serif;
+	font-size: 12px;
+	background: #fff url('../img/bg.png') repeat-x center top;
+	padding: 5px;
+	margin: 6px auto 1px 0;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border: 1px solid #A0CDE5;
+}
+
+input[type="text"]:hover, input[type="password"]:hover, select:hover, textarea:hover {
+	background: white;
+	border:1px solid #7bb9da;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+	background: white;
+	border: 1px solid #A0CDE5;
+}
+
+fieldset input[type="text"], fieldset input[type="password"], fieldset select, fieldset textarea {
+	width: 220px;
+	background: #fff url('../img/bg.png') repeat-x center top;
+	padding: 5px;
+	font-family: Verdana, Georgia, sans-serif;
+	font-size: 13px;
+	color: #444;
+	margin: 0 0 10px;
+}
+
+fieldset textarea {
+	width: 440px;
+}
+
+fieldset table td {
+	vertical-align: top;
+}
+
+input[type="text"].smallint {
+	text-align: center;
+	width: 20px;
+	margin: 0;
+	padding: 2px;
+}
+
+input[type="submit"], input[type="reset"], input[type="button"] {
+	margin: 4px;
+	background: #7397c3 url('../img/bg.png') repeat-x center center;
+	border: 1px solid #396CBC;
+	color: #fff;
+	padding: 6px 16px;
+	font: bold 12px Tahoma, serif;
+	cursor: pointer;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
+	background-color: #82a2c9;
+	border-color: #5180C6;
+	color: #fff;
+}
+
+input[type="checkbox"] {
+	margin: 8px 4px 0;
+}
+
+fieldset strong {
+	font-family: Verdana;
+	font-size: 12px;
+	padding: 20px 0 10px;
+	display: block;
+}
+
+input[type="text"].int3 {
+	width: 50px;
+}
+
+input[type="text"].width150, input[type="password"].width150 {
+	width: 150px;
+}
+
+table h3 {
+	text-decoration: none;
+}
+
+li strong {
+	color: #444;
+	border-bottom: 1px solid #ccc;
+	padding: 0;
+}
+
+label {
+	font-family: "Segoe UI", Tahoma, Helvetica;
+	font-size: 13px;
+	line-height: 2.0em;
+	margin: 0 5px;
+}
+
+dt {
+	font: bold 1.2em "Segoe UI", Tahoma, Helvetica, Arial, sans-serif;
+}
+
+dd {
+	margin: 5px 0 15px;
+	font: 12px "Verdana", Tahoma, Helvetica, Arial, sans-serif;
+	max-width: 400px;
+}
+
+dl {
+	margin: 15px;
+}
+
+.icon {
+	float: left;
+}
+
+img {
+	border: none;
+}
+
+.addit {
+	margin: -3px 3px -3px 15px;
+}
+
+#admintable .addit {
+	margin: -3px 3px;
+}
+
+#filemanager .addit {
+	margin: 1px 2px;
+}
+
+.nameyes {
+	color: green;
+}
+
+.nameno {
+	color: #e8521e;
+}
+
+
+
+/* -------- *
+ * Hlavička *
+ * -------- */
+
+#page {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+#panel {
+	display: block;
+	background: #4777B2 url('../img/bg.png') repeat-x center top;
+	font: bold normal 18px 'Tahoma', Georgia, Tahoma, sans-serif;
+	line-height: 18px;
+	color: #fff;
+	text-shadow: 1px 1px 0 #666;
+	text-decoration: none;
+	height: 36px;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	box-shadow: 0 3px 5px #999;
+	-webkit-box-shadow: 0 3px 5px #999;
+	-moz-box-shadow: 0 3px 5px #999;
+	z-index: 99;
+}
+
+#lefter {
+	display: block;
+	padding: 8px 12px;
+	float: left;
+}
+
+#righter {
+	padding: 10px 12px;
+	float: right;
+	font: bold normal 12px Tahoma,serif;
+}
+
+#righter img {
+	border: 0;
+	height: 14px;
+	width: 14px;
+	margin: -2px 1px -2px 3px;
+}
+
+#panel a {
+	color: #f4f4f4;
+}
+
+#panel a:hover {
+	color: #fff;
+}
+
+#menu p {
+	margin: 8px 8px 8px 0;
+	font: italic 12px Calibri, Tahoma, serif;
+	line-height: 12px;
+	padding: 0;
+	float: right;
+	text-align: right;
+}
+
+#menu {
+	width:64px;
+	height: 100%;
+	top: 36px;
+	left: 0;
+	position: fixed;
+	background: #DCE5F4 url('../img/bg.png') center top repeat-x;
+	box-shadow: 2px 0 4px #999;
+	-webkit-box-shadow: 2px 0 4px #999;
+	-moz-box-shadow: 2px 0 4px #999;
+	z-index: 98;
+}
+
+#menu > ul {
+	display: block;
+	width: 64px;
+	float: left;
+}
+
+#menu > ul > li {
+	list-style: none;
+	display: block;
+	float: left;
+	height: 48px;
+	width: 64px;
+}
+
+#menu > ul > li > a {
+	font: normal 14px 'Segoe UI', Arial, sans-serif;
+	color: #5098ba;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px #fff;
+	display: block;
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	padding: 16px 16px 0 16px;
+}
+
+#menu > ul > li > ul {
+	background: #DDE6F4;
+	border-radius: 0 8px 8px 0;
+	-moz-border-radius: 0 8px 8px 0;
+	-webkit-border-radius: 0 8px 8px 0;
+	display: none;
+	box-shadow: 1px 2px 3px #999;
+	-webkit-box-shadow: 2px 0 4px #999;
+	-moz-box-shadow: 1px 2px 3px #999;
+	padding: 6px 10px 6px 0;
+}
+
+#menu > ul > li > ul > li {
+	border: none;
+	margin: 0;
+	list-style: none;
+	background: url('../img/ul.png') no-repeat 11px center;
+}
+
+#menu ul ul li a {
+	font-size: 12px;
+	padding: 3px 12px 3px 21px;
+	color: #666;
+	display: block;
+}
+
+#menu ul ul li a:hover {
+	color: #111;
+}
+
+#content {
+	padding: 15px;
+	margin: 32px 0 0 64px;
+}
+
+#content ul {
+	margin-bottom: 8px;
+}
+
+#content li {
+	margin-left: 25px;
+	font: normal 12px 'Verdana', Tahoma, sans-serif;
+	line-height: 1.6em;
+}
+
+#content .default .Texyla div .toolbar li {
+	margin: 0;
+}
+
+
+
+/* Informačný box */
+.infobox {
+	font-family: "Verdana", sans-serif;
+	background: #f4f9fb url('../img/bg.png') repeat-x center top;
+	border: 1px solid #c5dae5; 
+	border-radius: 7px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	padding: 3px 5px;
+	margin: 5px 0;
+}
+
+.infobox img {
+	border: none;
+	width: 32px;
+	height: 32px;
+	float: left;
+	margin: 5px;
+}
+
+.infobox p {
+	font-weight: bold;
+	font: normal 15px "Verdana", sans-serif;
+	margin: 10px 0;
+	padding: 0;
+}
+
+/* Zoznamy administrácie */
+#admintable {
+	font-family: Georgia, sans-serif;
+	font-size: 13px;
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+#admintable th {
+	background: #7397c3 url('../img/bg.png') repeat-x center center;
+	border: 1px solid #396CBC;
+	color: #fff;
+	padding: 6px 16px;
+	font: bold normal 12px Tahoma, serif;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	text-align: center;
+}
+
+#admintable tr td {
+	font: normal 12px Verdana, sans-serif;
+	padding: 6px 12px;
+	border-bottom: 1px solid #ececec;
+}
+
+#admintable .alcen {
+	text-align: center;
+	width: 50px;
+}
+
+#admintable .smallint {
+	background: white;
+}
+
+#admintable img {
+	margin: 0 3px;
+}
+
+#admintable tr td.imgprev {
+	text-align: center;
+	padding: 6px 10px;
+}
+
+#admintable tr td.imgprev img, img.prev {
+	border: 1px solid #59C0F8;
+	padding: 5px;
+	background: white;
+	margin: 5px;
+	height: 45px;
+}
+
+.showView {
+	display: block;
+}
+
+.welcome {
+	margin: 8px;
+	font: normal 1.1em Verdana, serif;
+}
+
+.cofrNew {
+	background: #fbfbfb;
+	border: 1px solid #f7f7f7;
+	margin: 0 0 7px;
+}
+
+.cofrNew p {
+	margin: 4px 6px;
+	font-size: 1.1em;
+}
+
+.cofrNew .added {
+	font: italic bold 0.8em 'Lucida Sans Unicode', Lucida Granede, Helvetica, sans-serif;
+	text-align: right;
+	color: #aaa;
+}
+
+#pagelinks {
+	text-align: center;
+}
+
+#pagelinks a {
+	display: inline-block;
+	padding: 6px 12px;
+	font: italic 12px Calibri, Tahoma, serif;
+	margin: 0 3px;
+	background: #D6E7FF;
+	border: 1px solid #A8CCFF;
+	color: #5991E0;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.newMessage img, #profilImage {
+	width: 32px;
+	height: 32px;
+	border: 1px solid #eee;
+	padding: 2px;
+}
+
+#profilImage {
+	width: 48px;
+	height: 48px;
+	float: right;
+}
+
+.newMessage td {
+	font: normal 0.8em Calibri, Tahoma, serif;
+	padding: 0;
+}
+
+#homepage {
+	width: 100%;
+	margin: 15px 0 0 0;
+}
+
+#homepage td {
+	vertical-align: top;
+	width: 25%;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	background: #DCE5F2;
+}
+
+#homepage td h3 {
+	margin: 0;
+	padding: 6px 10px;
+	background: #5F89BF url('../img/bg.png') repeat-x center top;
+	border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+}
+#homepage td h3 a {
+	color: #DAE4F2;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #666;
+}
+
+#homepage td p {
+	margin: 0;
+	padding: 4px 10px;
+}
+
+#homepage td span {
+	color: #fff;
+	font: bold 0.70em Verdana, Segoe UI, Calibri, Tahoma, sens-serif;
+}
+.displaynone { display: none; }
