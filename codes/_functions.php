@@ -342,6 +342,4 @@ function HcmParser ($co, $menuid = false, $author = false) {
 	};
 	return $co;
 };
-?> $co;
-};
 ?>
