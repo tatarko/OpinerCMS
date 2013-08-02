@@ -17,20 +17,35 @@ session_start ();
 
 
 // Definícia základných premenných
-if (!file_exists ('admin/includes/default-vars.php')) exit();
-include_once ('admin/includes/default-vars.php');
-error_reporting(0);
+require_once 'admin/includes/default-vars.php';
+
+if($_SERVER['HTTP_HOST'] != 'localhost') {
+
+	error_reporting(0);
+}
 
 
 
-// Checker
-if (@file_exists ('install.php')) Header ('Location: install.php');
-if (substr (PHP_VERSION, 0, 1) < 5) exit (chyba ('nie je možné spustiť stránku - verzia PHP nie je kompatibilná'));
-if (!file_exists ('admin/includes/TemplateClass.php')) exit (chyba ('nie je možné načítať súbor <kbd>admin/includes/TemplateClass.php</kbd>'));
-if (!file_exists ('codes/_functions.php')) exit (chyba ('nie je možné načítať súbor <kbd>codes/_functions.php</kbd>'));
-include ('codes/_functions.php');
-include ('admin/includes/TemplateClass.php');
-include ('codes/texyla/texyla.php');
+// Checkers
+if(@file_exists('install.php')) {
+
+	Header('Location: install.php');
+	exit();
+}
+
+if(version_compare(PHP_VERSION, '5.3', '<')) {
+
+	chyba('nie je možné spustiť stránku - verzia PHP nie je kompatibilná');
+	exit();
+}
+
+if(!file_exists('codes/_functions.php')) {
+
+	chyba('nie je možné načítať súbor <kbd>codes/_functions.php</kbd>');
+	exit ();
+}
+
+require_once 'codes/_functions.php';
 
 
 
@@ -156,7 +171,9 @@ if ((isset ($file) and @file_exists($file)) or isset ($out)) {
 
 
 // Štatistiky
-if ($_CONFIG['stats'] == 1 and stripos ($_SERVER['HTTP_USER_AGENT'], array ('google', 'jyxo', 'seznam', 'slurp', 'crawler', 'bot')) === false) {
+if($_CONFIG['stats']
+		&& !preg_match('#(google|jyxo|seznam|slurp|crawler|bot)#', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+
 	@mysql_query ("INSERT INTO `{$prefix}_hits` VALUES ('0','{$_SERVER["REMOTE_ADDR"]}','?{$_SERVER['QUERY_STRING']}',NOW(),'{$_SERVER['HTTP_USER_AGENT']}')");
 	if (!@mysql_fetch_row (mysql_query ("SELECT id FROM `{$prefix}_visits` WHERE `browser` = '{$_SERVER['HTTP_USER_AGENT']}' AND `ip` = '{$_SERVER["REMOTE_ADDR"]}' AND `kedy` >= SUBDATE(NOW(),INTERVAL 15 MINUTE)")))
 	@mysql_query("INSERT INTO `{$prefix}_visits` VALUES ('0','{$_SERVER["REMOTE_ADDR"]}',NOW(),'{$_SERVER['HTTP_USER_AGENT']}')");
@@ -200,11 +217,6 @@ for ($i = 1; $i <= $template->config['info']['count-menu']; ++$i) {
 // Statické pluginy
 $sql = @mysql_query ("SELECT `fname` FROM `{$prefix}_apps` WHERE `allowed` = 1 AND `static` = 1");
 if (mysql_num_rows ($sql) != 0)	{
-	if (!class_exists ('plugin')) {
-		if (@file_exists ('admin/includes/pluginClass.php')) {
-			include ('admin/includes/pluginClass.php');
-		} else return 'Missing /admin/includes/pluginClass.php';
-	};
 	while ($row = @mysql_fetch_assoc ($sql)) {
 		if ($plugin = loadPlugin ($row['fname'], 'staticrun'))
 		$plugin -> run ();

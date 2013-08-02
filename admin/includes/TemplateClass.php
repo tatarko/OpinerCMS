@@ -114,7 +114,7 @@ class TemplateClass {
 	public function foot () {
 		global $foot_info, $_CONFIG, $online, $stats, $translate;
 		$foot_info = str_replace ("\n", '[br /]', $_CONFIG['foot']);
-		$foot_info = texyla ($foot_info, 'admin');
+		$foot_info = OpinerAutoLoader::texyla ($foot_info, 'admin');
 		$foot_info = str_replace ('<p>', '', $foot_info);
 		$foot_info = str_replace ('</p>', '', $foot_info);
 		$foot_info = str_replace ('[br /]', '<br />', $foot_info);

@@ -15,7 +15,7 @@ $out = '<p>';
 if (mysql_num_rows($sql) != 0) {
 	while ($tab = mysql_fetch_row($sql)) {
 		$out .= '<strong>' . $tab[0] . '</strong>: ';
-		$out .= str_replace (array ("\n", '<p>', '</p>', '  '), array (' ', '', '', ' '), texyla ($tab[1], 'admin'));
+		$out .= str_replace (array ("\n", '<p>', '</p>', '  '), array (' ', '', '', ' '), OpinerAutoLoader::texyla ($tab[1], 'admin'));
 		$out .= '<br /><br />' . n;
 	};
 } else $out .= $translate['nocontent'] . "<br /><br />\n";

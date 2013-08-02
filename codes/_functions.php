@@ -146,13 +146,9 @@ function rwl ($index, $value, $and = false) {
 
 /*--- Ošetrenie vstupných dát ---*/
 
-function adjust ($string, $int = false) {
-	if ($int === true) return ($string + 0);
-	else if (!is_numeric ($string)) {
-		if (@function_exists ('mysql_real_escape_string')) return mysql_real_escape_string ($string);
-		else if (@function_exists ('mysql_escape_string')) return mysql_escape_string ($string);
-		else return addslashes ($string);
-	} else return $string;
+function adjust($string, $int = false) {
+	
+	return $int ? (int)$string : mysql_real_escape_string($string);
 };
 
 
@@ -214,7 +210,7 @@ function getTags ($tags) {
 function getLinkServicies ($link, $title) {
 	global $translate;
 	$serv = array (
-		array ('http://friends.opiner-cms.net/index.php?modul=links&amp;add', 'Opiner Friends', 'links.png'),
+		array ('http://friends.tatarko.sk/index.php?modul=links&amp;add', 'Opiner Friends', 'links.png'),
 		array ('http://digg.com/submit?phase=2&amp;url={LINK}&amp;title={TITLE}', 'Digg', 'digg.png'),
 		array ('http://del.icio.us/post?url={LINK}&amp;title={TITLE}', 'del.icio.us', 'delicious.png'),
 		array ('https://favorites.live.com/quickadd.aspx?marklet=1&amp;url={LINK}&amp;title={TITLE}', 'Live', 'live.png'),

@@ -32,7 +32,7 @@ public
 function
 getReflection(){return
 new
-ReflectionObject($this);}protected
+ReflectionObject($this);}public
 function
 __call($name,$args){if($name===''){throw
 new
@@ -42,17 +42,17 @@ Traversable){foreach($list
 as$handler){call_user_func_array($handler,$args);}}return;}$cl=$class;do{if(function_exists($nm=$cl.'_prototype_'.$name)){array_unshift($args,$this);return
 call_user_func_array($nm,$args);}}while($cl=get_parent_class($cl));throw
 new
-MemberAccessException("Call to undefined method $class::$name().");}protected
+MemberAccessException("Call to undefined method $class::$name().");}public
 static
 function
 __callStatic($name,$args){$class=get_called_class();throw
 new
-MemberAccessException("Call to undefined static method $class::$name().");}protected
+MemberAccessException("Call to undefined static method $class::$name().");}public
 function&__get($name){if($name===''){throw
 new
 MemberAccessException("Cannot read an property without name.");}$class=get_class($this);$m='get'.$name;if(self::hasAccessor($class,$m)){$val=$this->$m();return$val;}else{throw
 new
-MemberAccessException("Cannot read an undeclared property $class::\$$name.");}}protected
+MemberAccessException("Cannot read an undeclared property $class::\$$name.");}}public
 function
 __set($name,$value){if($name===''){throw
 new
@@ -60,9 +60,9 @@ MemberAccessException('Cannot assign to an property without name.');}$class=get_
 new
 MemberAccessException("Cannot assign to a read-only property $class::\$$name.");}}else{throw
 new
-MemberAccessException("Cannot assign to an undeclared property $class::\$$name.");}}protected
+MemberAccessException("Cannot assign to an undeclared property $class::\$$name.");}}public
 function
-__isset($name){return$name!==''&&self::hasAccessor(get_class($this),'get'.$name);}protected
+__isset($name){return$name!==''&&self::hasAccessor(get_class($this),'get'.$name);}public
 function
 __unset($name){$class=get_class($this);throw
 new

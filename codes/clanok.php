@@ -46,12 +46,12 @@ if ($info = mysql_fetch_row(mysql_query("SELECT nadpis,text,cat,UNIX_TIMESTAMP(`
 		else $hodnotenie = array ($hodnotenie[0], round ($hodnotenie[1]/$hodnotenie[0],0));
 		$commbool = ($_CONFIG['global_comments'] == 1 and $info[8] == 1) ? true : false;
 		$title .= $sep . $info[0];
-		$perexout = (($_CONFIG['wysiwyg'] == 'texyla') ? texyla (HcmParser ($info[4], false, $info[14]), 'admin') : HcmParser ($info[4], false, $info[14]));
+		$perexout = (($_CONFIG['wysiwyg'] == 'texyla') ? OpinerAutoLoader::texyla (HcmParser ($info[4], false, $info[14]), 'admin') : HcmParser ($info[4], false, $info[14]));
 		$ServiceLink = _SiteLink . rwl ('clanok', $id . '-' . $info[5]);
 		$out = '<h1 align="center">' . $info[0] . '</h1>'.n;
 		$out .= '<blockquote>' . $imagelink . $perexout . $imagend . "</blockquote>\n";
 		$out .= '<a name="read-more"></a>'.n;
-		$out .= ($_CONFIG['wysiwyg'] == 'texyla') ? texyla (HcmParser ($info[1], false, $info[14]), 'admin') . '<br />'.n : HcmParser ($info[1], false, $info[14]) . '<br />'.n;
+		$out .= ($_CONFIG['wysiwyg'] == 'texyla') ? OpinerAutoLoader::texyla (HcmParser ($info[1], false, $info[14]), 'admin') . '<br />'.n : HcmParser ($info[1], false, $info[14]) . '<br />'.n;
 		
 		if ($info[16] > 0) {
 			$out .= HcmParser ('[hcm]gall_imgs,' . $info[16] . '[/hcm]');

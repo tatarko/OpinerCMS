@@ -23,7 +23,7 @@ if ($info = @mysql_fetch_row (@mysql_query("SELECT seo, nadpis, text, com, msec,
 	while ($value = @mysql_fetch_row ($sql))
 	$secs = '	<li><a href="' . rwl ('sekcia', $value[0] . '-' . $value[1]) . '">' . langrep ('sections.downsec', $value[2]) . ' &raquo;&raquo;&raquo;</a></li>';
 	if (isset ($secs)) $out .= "<ul>\n" . implode ("\n", $secs) . "\n</ul>\n"; 
-	$texter = ($_CONFIG['wysiwyg'] == 'texyla') ? texyla (HcmParser ($info[2]), 'admin') : HcmParser ($info[2]);
+	$texter = ($_CONFIG['wysiwyg'] == 'texyla') ? OpinerAutoLoader::texyla (HcmParser ($info[2]), 'admin') : HcmParser ($info[2]);
 	$out .= $texter;
 	if ($info[3] == 1) $out .= HcmParser('[hcm]com,sec_' . $id . '[/hcm]');
 	$texter = strip_tags($texter);

@@ -48,7 +48,7 @@ $out = '<h1 align="center">' . $_CONFIG['microblog_head'] . '</h1>
 .div2 {background-color:' . $template->config['theme-colors']['ap2'] . ';}
 .linker {font-weight:bold;text-decoration:none;}
 </style>' . n;
-$out .= texyla ($_CONFIG['microblog'], 'forum');
+$out .= OpinerAutoLoader::texyla ($_CONFIG['microblog'], 'forum');
 $kolko = mysql_fetch_row (mysql_query ("SELECT COUNT(*) FROM {$prefix}_microblog"));
 if ($pag === false)
 $pag = ceil ($kolko[0] / $_CONFIG['list_microblog']);
@@ -80,7 +80,7 @@ if (@mysql_num_rows ($sql) > 0) {
 			$out .= ' <a href="admin.php?what=microblog&mod=delete&id=' . $tab[0] . '">' . $translate['drop'] . '</a>';
 		};
 		$out .= '</p>';
-		$out .= texyla ($tab[2], 'admin');
+		$out .= OpinerAutoLoader::texyla ($tab[2], 'admin');
 		$out .= '</div>' . n;
 	};
 } else $out .= '<p>' . $translate['nocontent'] . '</p>' . n;
@@ -347,7 +347,7 @@ if (isset ($_REQUEST['tag']) and !empty ($_REQUEST['tag'])) {
  $sql = @mysql_query ("SELECT `id`, `nadpis`, `seo`, `perex` FROM `{$prefix}_clanky` WHERE `showing` = 1 AND `added` <= NOW() AND `confirmed` = 1 AND `tags` LIKE '%" . adjust ($_REQUEST['tag']) . "%' ORDER BY `added` DESC");
  while ($tab = mysql_fetch_assoc ($sql)) {
   $link = _SiteLink . rwl ('clanok', $tab['id'] . '-' . $tab['seo']);
-  $text = strip_tags (texyla (HcmParser ($tab['perex']), 'admin'));
+  $text = strip_tags (OpinerAutoLoader::texyla (HcmParser ($tab['perex']), 'admin'));
   #$text = preg_replace ("#[\s]+#", " ", $text);
   $text = strlen ($text) > 256 ? substr ($text, 0, strpos ($text, ' ', 256)) . '...' : $text;
   $out .= '  <h3><a href="' . $link . '">' . strip_tags ($tab['nadpis']) . '</a></h2>

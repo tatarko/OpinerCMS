@@ -65,7 +65,7 @@ if (mysql_num_rows ($sql) != 0) {
 		else if ($info = @mysql_fetch_row (@mysql_query ("SELECT `mail` FROM `{$prefix}_moderators` WHERE `nick` = '{$tab[0]}' LIMIT 1"))) $OutMail = $info[0];
 		else $OutMail = $tab[2];
 		$adminos = (ONLINE) ? '<a href="./?page=comment-edit&id='.$tab[5].'">' . $translate['edit'] . '</a>, <a href="./?page=comment-delete&id='.$tab[5].'">' . $translate['drop'] . '</a>' : '';
-		$text = texyla ($tab[1], 'forum');
+		$text = OpinerAutoLoader::texyla ($tab[1], 'forum');
 		while (false !== ($tagy[] = strpos ($text, '[reply:')) and false !== ($tagy[] = strpos ($text, ']', $tagy[0]))) {
 			foreach ($tagy as $index => $value) $tags[$index] = '' . $value;
 			$idof = substr ($text, $tags[0] + 7, $tags[1] - ($tags[0] + 7));
@@ -74,7 +74,7 @@ if (mysql_num_rows ($sql) != 0) {
 				if ($idinfo[0] == 'admin') $idinfo[0] = GetAuthorName (0);
 				else if ($info == @mysql_fetch_row (@mysql_query ("SELECT `id` FROM `{$prefix}_moderators` WHERE `nick` = $idinfo[0]"))) $idinfo[0] = GetAuthorName ($info[0]);
 				else $idinfo[0] = $idinfo[0];
-				@$idinfo[1] = texyla ('' . $idinfo[1], 'forum');
+				@$idinfo[1] = OpinerAutoLoader::texyla ('' . $idinfo[1], 'forum');
 				$idinfo[1] = explode ("\n", $idinfo[1]);
 				$idinfo[1] = implode ("\n\t", $idinfo[1]);
 				$idinfo[1] = trim ($idinfo[1], "\n\t");

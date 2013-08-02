@@ -26,7 +26,7 @@ if (mysql_num_rows ($s) != 0) {
 			mysql_query ("UPDATE {$prefix}_clanky SET `reads` = `reads` + 1 WHERE id = '$tab[4]' LIMIT 1");
 		};
 		$artlink = ($tab[7] == '') ? '' : '<p><a href="'.rwl('clanok',$tab[4].'-'.$tab[0]).'#readmore">' . $translate['readmore'] . '</a></p>';
-		$text = texyla (HcmParser ($tab[3]), 'admin');
+		$text = OpinerAutoLoader::texyla (HcmParser ($tab[3]), 'admin');
 		$text .= $artlink;
 		$cat = mysql_fetch_row (mysql_query ("SELECT skr, nadpis FROM {$prefix}_cats WHERE id=$tab[5]"));
 		$datetime = mktime (substr($tab[2],6,2), substr($tab[2],8,2), substr($tab[2],10,2), substr($tab[2],2,2), substr($tab[2],0,2), substr($tab[2],4,2));

@@ -1,6 +1,6 @@
 <?php
 
-$jsonData = json_decode(file_get_contents('http://cojenove.sk/api.php?app=' . urlencode($_SERVER['SERVER_NAME']) . (isset($param2) && (int)$param2 ? '&limit=' . (int)$param2 : '')), true);
+$jsonData = json_decode(file_get_contents('http://eduspravy.sk/api.php?app=' . urlencode($_SERVER['SERVER_NAME']) . (isset($param2) && (int)$param2 ? '&limit=' . (int)$param2 : '')), true);
 
 if(!isset($jsonData['articles'])) {
 	
@@ -17,7 +17,7 @@ foreach($jsonData['articles'] as $data) {
 	else $out .= '<h5><a href="' . $data['url'] . '">' . htmlspecialchars($data['title']) . '</a></h5>
 	<p>' . htmlspecialchars($data['content']) . ' <em><small>' . date('d.m.Y @H:i', $data['time']) . '</small></em></p>' . PHP_EOL;
 }
-$out .= $isMenu ? ' <li><small><a href="http://cojenove.sk/">&raquo; Viac na Čojenové.sk</a></small></li>' . PHP_EOL : '<p><small><a href="http://cojenove.sk/">&raquo; Viac na Čojenové.sk</a></small></p>' . PHP_EOL;
+$out .= $isMenu ? ' <li><small><a href="http://eduspravy.sk/">&raquo; Viac na Edusprávy.sk</a></small></li>' . PHP_EOL : '<p><small><a href="http://eduspravy.sk/">&raquo; Viac na Edusprávy.sk</a></small></p>' . PHP_EOL;
 $out .= $isMenu ? '</ul>' . PHP_EOL : '';
 
 return $out;

@@ -47,4 +47,48 @@ $tohead = array ();
 /*--- Funkcie ---*/
 
 function chyba ($coho) { echo "<p><b><span style='color:red'>Chyba (Error)</span></b> - $coho</p>"; };
-?>
+
+
+class OpinerAutoLoader {
+
+	protected static $map = array(
+		'TemplateClass' => 'admin/includes/TemplateClass.php',
+		'texyla'		=> 'codes/texyla/texyla.php',
+		'plugin'		=> 'admin/includes/pluginClass.php',
+	);
+
+	public static function getRoot($file) {
+
+		return dirname(__FILE__) . '/../../' . $file;
+	}
+
+	public static function addToMap($class, $file) {
+
+		if(!file_exists(self::getRoot($file))) {
+
+			trigger_error(sprintf('File %s for autoloading class %s does not exists!', $file, $class));
+		}
+
+		self::$map[$class] = $file;
+	}
+
+	public static function loadClass($class) {
+
+		if(!class_exists($class, false) && isset(self::$map[$class])) {
+
+			require_once self::getRoot(self::$map[$class]);
+		}
+	}
+
+	public static function __callStatic($function, $args) {
+
+		if(!function_exists($function) && isset(self::$map[$function])) {
+
+			require_once self::getRoot(self::$map[$function]);
+		}
+
+		return call_user_func_array($function, $args);
+	}
+}
+
+spl_autoload_register(array('OpinerAutoLoader', 'loadClass'));
