@@ -1,6 +1,5 @@
 <?php
 $out = HeadIfPost ($translate['apps.market']);
-if (!class_exists ('plugin')) { include ('admin/includes/pluginClass.php'); };
 
 
 
@@ -9,7 +8,7 @@ if (!class_exists ('plugin')) { include ('admin/includes/pluginClass.php'); };
 /*--- Nastavenia aplikácie ---*/
 if (isset ($_REQUEST['settings'])
 and $info = @mysql_fetch_assoc (@mysql_query ("SELECT * FROM `{$prefix}_apps` WHERE `id` = " . adjust ($_REQUEST['settings'], true) . " LIMIT 1"))
-and $app = loadPlugin ($info['fname'])) {
+and $app = OpinerAutoLoader::loadPlugin ($info['fname'])) {
 if (isset ($_POST['save'])) {
 	$value = array ();
 	$value[] = (isset ($_POST['application'])) ? 1 : 0; #0
@@ -59,7 +58,7 @@ $out .= '<input type="submit" value="' . $translate['save'] . '" name="save" />
 
 } else if (isset ($_REQUEST['install'])) {
 if (!@mysql_fetch_row (@mysql_query ("SELECT `id` FROM `{$prefix}_apps` WHERE `fname` = '" . adjust ($_REQUEST['install']) . "' LIMIT 1"))) {
-	if ($app = loadPlugin ($_REQUEST['install'])
+	if ($app = OpinerAutoLoader::loadPlugin ($_REQUEST['install'])
 	and @mysql_query ("INSERT INTO `{$prefix}_apps` VALUES (0, '" . adjust ($_REQUEST['install']) . "', '" . adjust ($app -> title) . "', '" . adjust ($app -> description) . "', '" . adjust ($app -> version) . "', '" . adjust ($app -> author) . "', '" . adjust ($app -> url) . "', 0, 1, 1, " . (($app -> canRun ('application'))?1:0) . ", " . (($app -> canRun ('widget'))?1:0) . ", " . (($app -> canRun ('hcm'))?1:0) . ", " . (($app -> canRun ('plugin'))?1:0) . ", " . (($app -> canRun ('staticrun'))?1:0) . ", " . (($app -> onlyAdmin())?0:1) . ", " . $app -> hasCache () . ", 1, UNIX_TIMESTAMP(), 0);")
 	and $app -> runDB())
 	$out .= getIcon ('info', $translate['successact']);
@@ -75,7 +74,7 @@ if (!@mysql_fetch_row (@mysql_query ("SELECT `id` FROM `{$prefix}_apps` WHERE `f
 } else if (isset ($_REQUEST['cofr'], $_REQUEST['fname'])) {
 if (!@mysql_fetch_row (@mysql_query ("SELECT `id` FROM `{$prefix}_apps` WHERE `fname` = '" . adjust ($_REQUEST['install']) . "' LIMIT 1"))) {
 	if (@file_put_contents ('admin/apps/' . $_REQUEST['fname'] . '.php', file_get_contents ($_REQUEST['cofr']))) {
-		$app = loadPlugin ($_REQUEST['fname']);
+		$app = OpinerAutoLoader::loadPlugin ($_REQUEST['fname']);
 		if (@mysql_query ("INSERT INTO `{$prefix}_apps` VALUES (0, '" . adjust ($_REQUEST['fname']) . "', '" . adjust ($app -> title) . "', '" . adjust ($app -> description) . "', '" . adjust ($app -> version) . "', '" . adjust ($app -> author) . "', '" . adjust ($app -> url) . "', 0, 1, 1, " . (($app -> canRun ('application'))?1:0) . ", " . (($app -> canRun ('widget'))?1:0) . ", " . (($app -> canRun ('plugin'))?1:0) . ", " . (($app -> canRun ('hcm'))?1:0) . ", " . (($app -> canRun ('staticrun'))?1:0) . ", " . (($app -> onlyAdmin())?0:1) . ", " . $app -> hasCache () . ", 1, UNIX_TIMESTAMP(), 0);"))
 		$out .= getIcon ('info', $translate['successact']);
 		else $out .= getIcon ('error', $translate['failureact']);
@@ -91,7 +90,7 @@ if (!@mysql_fetch_row (@mysql_query ("SELECT `id` FROM `{$prefix}_apps` WHERE `f
 } else if (isset ($_REQUEST['url'], $_REQUEST['update'])) {
 if ($info = @mysql_fetch_row (@mysql_query ("SELECT `id` FROM `{$prefix}_apps` WHERE `fname` = '" . adjust ($_REQUEST['update']) . "' LIMIT 1"))) {
 	if (@file_put_contents ('admin/apps/' . $_REQUEST['update'] . '.php', file_get_contents ($_REQUEST['url']))) {
-		$app = loadPlugin ($_REQUEST['update']);
+		$app = OpinerAutoLoader::loadPlugin ($_REQUEST['update']);
 		if (@mysql_query ("UPDATE `{$prefix}_apps` SET `version` = '" . adjust ($app -> version) . "' WHERE `id` = $info[0] LIMIT 1"))
 		$out .= getIcon ('info', $translate['successact']);
 		else $out .= getIcon ('error', $translate['failureact']);
@@ -106,7 +105,7 @@ if ($info = @mysql_fetch_row (@mysql_query ("SELECT `id` FROM `{$prefix}_apps` W
 
 } else if (isset ($_REQUEST['uninstall'])) {
 if ($info = @mysql_fetch_assoc (@mysql_query ("SELECT `fname` FROM `{$prefix}_apps` WHERE `id` = " . adjust ($_REQUEST['uninstall'], true) . " LIMIT 1"))) {
-	if ($app = loadPlugin ($info['fname'])
+	if ($app = OpinerAutoLoader::loadPlugin ($info['fname'])
 	and $app -> uninstall ()
 	and @mysql_query ("DELETE FROM `{$prefix}_apps` WHERE `id` = " . adjust ($_REQUEST['uninstall'], trur) . " LIMIT 1"))
 	$out .= getIcon ('info', $translate['successact']);
@@ -149,7 +148,7 @@ $out .= '	<tr><td colspan="4"><span class="nameno">' . $translate['apps.appnotin
 $dir = opendir ('admin/apps');
 while ($file = readdir ($dir)) {
 	$array_apps = isset ($apps) ? $apps : array ();
-	if ($name = substr ($file, 0, strrpos ($file, '.php')) and $name != '' and array_search ($name, $array_apps) === false and false !== ($app = loadPlugin ($name))) {
+	if ($name = substr ($file, 0, strrpos ($file, '.php')) and $name != '' and array_search ($name, $array_apps) === false and false !== ($app = OpinerAutoLoader::loadPlugin ($name))) {
 		$out .= '	<tr>
 		<td>' . $app -> title . ' (' . $app -> version . ')</td>
 		<td><a href="' . $app -> url . '" target="_blank">' . $app -> author . '</a></td>

@@ -296,12 +296,7 @@ if (!isset ($out)) $out = '';
 break;
 
 case 'plugin':
-if (!class_exists ('plugin')) {
-	if (@file_exists ('admin/includes/pluginClass.php')) {
-		include ('admin/includes/pluginClass.php');
-	} else return '';
-};
-if ($plugin = loadPlugin ($param1, 'hcm'))
+if ($plugin = OpinerAutoLoader::loadPlugin ($param1, 'hcm'))
 return $plugin -> run ();
 break;
 

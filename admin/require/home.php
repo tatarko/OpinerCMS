@@ -59,9 +59,8 @@ switch ($_CONFIG['startpage'])
 
 	// Načítanie aplikácie
 	default:
-		if (!class_exists ('plugin')) include ('admin/includes/pluginClass.php');
-	        $app = loadPlugin ($_CONFIG['startpage'], 'application');
-	        $out = $app -> run ();
+		$app = OpinerAutoLoader::loadPlugin ($_CONFIG['startpage'], 'application');
+		$out = $app -> run ();
 	break;
 }
 ?>

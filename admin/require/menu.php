@@ -1,6 +1,5 @@
 <?php
 if (!defined ('in')) exit ();
-include ('admin/includes/TemplateClass.php');
 $template = new TemplateClass ($_CONFIG['template']);
 $out .= '<p class="right"><a href="admin.php?what=menu">' . TempIcon ('cat') . ' ' . $translate['menu'] . '</a> <a href="admin.php?what=sections">' . TempIcon ('cat') . ' ' . $translate['sections'] . '</a> <a href="admin.php?what=links">' . TempIcon ('cat') . ' ' . $translate['links'] . '</a> <a href="admin.php?what=art-categories">' . TempIcon ('cat') . ' ' . $translate['categories'] . '</a> <a href="admin.php?what=' . $what . '&amp;mod=add">' . TempIcon ('add') . ' ' . $translate['menu.addbox'] . '</a></p>'.n;
 

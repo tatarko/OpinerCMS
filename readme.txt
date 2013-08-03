@@ -10,9 +10,9 @@ OBSAH
 -----
 
 1) O projekte
-2) Poiadavky na server
-3) Inštalácia
-4) Èasto kladené otázky - FAQ
+2) PoÅ¾iadavky na server
+3) InÅ¡talÃ¡cia
+4) ÄŒasto kladenÃ© otÃ¡zky - FAQ
 5) Licencia
 6) Odkazy
 
@@ -21,68 +21,68 @@ OBSAH
 1. O PROJEKTE
 -------------
 
-Open Source redakènı systém pre tvorbu webovıch stránok pre
-kadého. Pomocou tohto projektu, ktorı je vyvíjanı mladım
-tímom vytvoríte modernú webovú stránku rıchlo, jednoducho,
-no najmä zadarmo. Opiner ako slovo samotné znamená "prednies
-svoj názor, mienku", tak nechajte svoje názory preniknú
-do sveta dnešného internetu pomocou redakèného systému Opiner CMS.
+Open Source redakÃ¨nÃ½ systÃ©m pre tvorbu webovÃ½ch strÃ¡nok pre
+kaÅ¾dÃ©ho. Pomocou tohto projektu, ktorÃ½ je vyvÃ­janÃ½ mladÃ½m
+tÃ­mom vytvorÃ­te modernÃº webovÃº strÃ¡nku rÃ½chlo, jednoducho,
+no najmÃ¤ zadarmo. Opiner ako slovo samotnÃ© znamenÃ¡ "predniesÂ
+svoj nÃ¡zor, mienku", tak nechajte svoje nÃ¡zory preniknÃºÂ
+do sveta dneÅ¡nÃ©ho internetu pomocou redakÃ¨nÃ©ho systÃ©mu Opiner CMS.
 
-Viac informácií, veci na stiahnutie, návody a mnoho iného nájdeš
-na oficiálnych stránkach tohto projektu na adrese:
+Viac informÃ¡ciÃ­, veci na stiahnutie, nÃ¡vody a mnoho inÃ©ho nÃ¡jdeÅ¡
+na oficiÃ¡lnych strÃ¡nkach tohto projektu na adrese:
 
-http://opiner-cms.net/
+http://opiner.tatarko.sk/
 
 
 
-2. POIADAVKY NA SERVER
+2. POÅ½IADAVKY NA SERVER
 -----------------------
 
-- PHP verzie 5.0.0 a vyššej
-- MySQL verzie 4.1.0 a vyššej
-- pri pouívaní galérie je potrebná kninica GD2
+- PHP verzie 5.3 a vyÅ¡Å¡ej
+- MySQL verzie 5.0 a vyÅ¡Å¡ej
+- pri pouÅ¾Ã­vanÃ­ galÃ©rie je potrebnÃ¡ kniÅ¾nica GD2
 
 
 
-3. INŠTALÁCIA
+3. INÅ TALÃCIA
 -------------
 
-1) Pomocou FTP klienta nakopírujte všetky súbory z tohto prieèinku
-   na Váš server.
-2) Na súbor _config.php nastavte prístupové práva (chmod) na 777.
-3) Pomocou prehliadaèa prehliadaèa prejdite na adresu Vašej stránky.
-4) Postupujte pod¾a krokov inštalácie.
+1) Pomocou FTP klienta nakopÃ­rujte vÅ¡etky sÃºbory z tohto prieÃ¨inku
+   na VÃ¡Å¡ server.
+2) Na sÃºbor _config.php nastavte prÃ­stupovÃ© prÃ¡va (chmod) na 777.
+3) Pomocou prehliadaÄa prehliadaÃ¨a prejdite na adresu VaÅ¡ej strÃ¡nky.
+4) Postupujte podÄ¾a krokov inÅ¡talÃ¡cie.
 
 
 
-4. ÈASTO KLADENÉ OTÁZKY - FAQ
+4. ÄŒASTO KLADENÃ‰ OTÃZKY - FAQ
 -----------------------------
 
-Otázka:
-Nejde mi prida obrázky do galérie, súbory na download,
-nefungujú gravatari...
+OtÃ¡zka:
+Nejde mi pridaÂ obrÃ¡zky do galÃ©rie, sÃºbory na download,
+nefungujÃº gravatari...
 
-Odpoveï:
-1) Pomocou FTP klienta sa prihláste na Váš server a prejdite
-   na prieèinok /store
-2) Na kadı prieèinok, ktorı sa tu nachádza nastavte prístupové
-   práva (chmod) na 777
-3) To isté urobte aj na prieèinok /admin/remote/schemas.
-4) Ak aj napriek tomuto kroku nefungujú, napíšte nám na:
-   tatarko@opiner-cms.net
+OdpoveÄ:
+1) Pomocou FTP klienta sa prihlÃ¡ste na VÃ¡Å¡ server a prejdite
+   na prieÃ¨inok /store
+2) Na kaÅ¾dÃ½ prieÄinok, ktorÃ½ sa tu nachÃ¡dza nastavte prÃ­stupovÃ©
+   prÃ¡va (chmod) na 777
+3) To istÃ© urobte aj na prieÃ¨inok /admin/remote/schemas.
+4) Ak aj napriek tomuto kroku nefungujÃº, napÃ­Å¡te nÃ¡m na:
+   opiner@tatarko.sk
 
-Otázka:
-Chcem zapnú Mod Re-Write, no v administracií to nejde
+OtÃ¡zka:
+Chcem zapnÃºÂ Mod Re-Write, no v administraciÃ­ to nejde
 
-Odpoveï:
-1) Najprv si overte, e Váš server tento mód podporuje
-2) Pomocou FTP klienta sa prihláste na Vašu stránku do jej
-   domovského prieèinku
-3) Súbor default.htaccess premenujte na .htaccess
-4) Prejdite do administrácie Vašej stránky do èasti
+OdpoveÄ:
+1) Najprv si overte, Å¾e VÃ¡Å¡ server tento mÃ³d podporuje
+2) Pomocou FTP klienta sa prihlÃ¡ste na VaÅ¡u strÃ¡nku do jej
+   domovskÃ©ho prieÄinku
+3) SÃºbor default.htaccess premenujte na .htaccess
+4) Prejdite do administrÃ¡cie VaÅ¡ej strÃ¡nky do Ã¨asti
    Nastavenia > Funkcie
-5) Zaškrtnite políèko Mod Re-Write a ulote nastavenia
-6) Systém u zaène generova odkazy pomocou spomínaného
+5) ZaÅ¡krtnite polÃ­Ã¨ko Mod Re-Write a uloÅ¾te nastavenia
+6) SystÃ©m uÅ¾ zaÄne generovaÅ¥ odkazy pomocou spomÃ­nanÃ©ho
    Mod-u Re-Write
 
 
@@ -90,13 +90,13 @@ Odpoveï:
 5. LICENCIA
 -----------
 
-Tento projekt – redakènı systém Opiner CMS a všetky jeho
-oficiálne súèasti sú šírené myšlienkou Open Source, teda
-slobodného software a to pod verejnou licenciou GNU/GPL.
-V praxi to znamená, e tento produkt môete slobodne pouíva,
-rozšírova medzi ¾udmi, na internete a dokonca aj upravi
-zdrojové kódy a upravenú verziu šíri na internete ako svoje
-dielo – avšak je potrebné uvies pôvodného autora / dielo
+Tento projekt â€“ redakÄnÃ½ systÃ©m Opiner CMS a vÅ¡etky jeho
+oficiÃ¡lne sÃºÄasti sÃº Å¡Ã­renÃ© myÅ¡lienkou Open Source, teda
+slobodnÃ©ho software a to pod verejnou licenciou GNU/GPL.
+V praxi to znamenÃ¡, Å¾e tento produkt mÃ´Å¾ete slobodne pouÅ¾Ã­vaÅ¥,
+rozÅ¡Ã­rovaÅ¥ medzi Ä¾udmi, na internete a dokonca aj upraviÅ¥
+zdrojovÃ© kÃ³dy a upravenÃº verziu Å¡Ã­riÅ¥ na internete ako svoje
+dielo â€“ avÅ¡ak je potrebnÃ© uviesÅ¥ pÃ´vodnÃ©ho autora / dielo
 (Ovalio / Opiner CMS).
 
 
@@ -104,11 +104,11 @@ dielo – avšak je potrebné uvies pôvodného autora / dielo
 6. ODKAZY
 ---------
 
-Oficiálne stránky systému:
+OficiÃ¡lne strÃ¡nky systÃ©mu:
 http://opiner.tatarko.sk/
 
 Komunita okolo Opiner CMS - Opiner Friends
 http://friends.tatarko.sk/
 
-Zákulisné informácie o vıvoji:
+ZÃ¡kulisnÃ© informÃ¡cie o vÃ½voji:
 http://tatarko.sk/

@@ -19,7 +19,6 @@ switch ($_GET['mod']) {
 
 case 'edit':
 	$out = HeadIfPost ($translate['fman.editfile']);
-	include ('admin/opiner-text/OpinerText.php');
 	if (isset ($_REQUEST['file'], $_SESSION['fmdir']) and $dir = $_SESSION['fmdir'] and $opendir = '.' . $dir . (($dir == '/') ? '' : '/') and @file_exists ($opendir . $_REQUEST['file'])
 	and $editor = new OpinerText ($opendir . $_REQUEST['file'], "admin.php?what=$mainame&mod=edit&file={$_REQUEST['file']}")) {
 		if (isset ($_GET['ok'], $_GET['text'])) {

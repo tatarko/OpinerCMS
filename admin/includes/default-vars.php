@@ -55,6 +55,10 @@ class OpinerAutoLoader {
 		'TemplateClass' => 'admin/includes/TemplateClass.php',
 		'texyla'		=> 'codes/texyla/texyla.php',
 		'plugin'		=> 'admin/includes/pluginClass.php',
+		'image'			=> 'admin/includes/image.class.inc.php',
+		'wdriver'		=> 'admin/includes/wysiwyg-class.php',
+		'OpinerText'	=> 'admin/opiner-text/OpinerText.php',
+		'loadPlugin'	=> 'admin/includes/pluginClass.php',
 	);
 
 	public static function getRoot($file) {

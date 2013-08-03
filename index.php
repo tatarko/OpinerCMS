@@ -11,22 +11,13 @@
 
 
 
-// Prihlasovanie
 session_start ();
-
-
-
-// Definícia základných premenných
-require_once 'admin/includes/default-vars.php';
 
 if($_SERVER['HTTP_HOST'] != 'localhost') {
 
 	error_reporting(0);
 }
 
-
-
-// Checkers
 if(@file_exists('install.php')) {
 
 	Header('Location: install.php');
@@ -45,6 +36,7 @@ if(!file_exists('codes/_functions.php')) {
 	exit ();
 }
 
+require_once 'admin/includes/default-vars.php';
 require_once 'codes/_functions.php';
 
 
@@ -141,12 +133,7 @@ foreach ($types as $index => $fil) {
 	$file = "codes/$fil.php";
 };
 if (!isset ($file) and isset ($_REQUEST['plugin']) and !empty ($_REQUEST['plugin'])) {
-	if (!class_exists ('plugin')) {
-		if (@file_exists ('admin/includes/pluginClass.php')) {
-			include ('admin/includes/pluginClass.php');
-		} else return '';
-	};
-	if ($plugin = loadPlugin ($_REQUEST['plugin'], 'plugin')) {
+	if ($plugin = OpinerAutoLoader::loadPlugin ($_REQUEST['plugin'], 'plugin')) {
 		$title .= $sep . $plugin -> title;
 		$out = '<h1 align="center">' . $plugin -> title . '</h1>'.n;
 		$out .= $plugin -> run ();
@@ -218,7 +205,7 @@ for ($i = 1; $i <= $template->config['info']['count-menu']; ++$i) {
 $sql = @mysql_query ("SELECT `fname` FROM `{$prefix}_apps` WHERE `allowed` = 1 AND `static` = 1");
 if (mysql_num_rows ($sql) != 0)	{
 	while ($row = @mysql_fetch_assoc ($sql)) {
-		if ($plugin = loadPlugin ($row['fname'], 'staticrun'))
+		if ($plugin = OpinerAutoLoader::loadPlugin ($row['fname'], 'staticrun'))
 		$plugin -> run ();
 	};
 };

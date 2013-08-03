@@ -7,23 +7,26 @@
 	- Šírené pod licenciou GNU / General Public License
 */
 
-
-// Prihlasovanie
 session_start ();
-error_reporting(0);
 
+if($_SERVER['HTTP_HOST'] != 'localhost') {
 
+	error_reporting(0);
+}
 
-// Definícia základných premenných
-if (!file_exists ('admin/includes/default-vars.php')) exit ();
-include_once ('admin/includes/default-vars.php');
+if(@file_exists('install.php')) {
 
+	Header('Location: install.php');
+	exit();
+}
 
+if(version_compare(PHP_VERSION, '5.3', '<')) {
 
+	chyba('nie je možné spustiť stránku - verzia PHP nie je kompatibilná');
+	exit();
+}
 
-// Install / Update Checker
-if (@file_exists ('install.php')) Header ('Location: install.php');
-if (substr (PHP_VERSION, 0, 1) < 5) exit (chyba ('nie je možné spustiť stránku - verzia PHP nie je kompatibilná'));
+require_once 'admin/includes/default-vars.php';
 
 
 
@@ -84,9 +87,6 @@ and @file_exists ("admin/require/$what.php") and (ADMIN or array_search ($what, 
 	$pag = (!isset ($_GET['pag'])) ? 1 : $_GET['pag'];
 	$limit = $_CONFIG['list_admin'];
 	$out = '';
-
-	// Vlozenie súbororov
-	include_once ('admin/includes/wysiwyg-class.php');
 	
 	// Bolo to uložené?
 	if (isset ($_SERVER['HTTP_REFERER'])) {
@@ -125,13 +125,11 @@ and @file_exists ("admin/require/$what.php") and (ADMIN or array_search ($what, 
 } else if (isset ($_GET['app']) and !empty ($_GET['app'])) {
 	$hash = adjust ($_GET['app']);
 	if ($_CONFIG['pluginsAllowed'] == 0) $out = "<p>{$translate['apps.notallowed']}</p>\n";
-	if (!@file_exists ('admin/includes/pluginClass.php')) $out = '<p>' . langrep ('missingfile', 'admin/includes/pluginClass.php') . "</p>\n";
 	else if (false === ($app = @mysql_fetch_assoc (@mysql_query ("SELECT `fname`, `allowed`, `redactors`, `application` FROM `{$prefix}_apps` WHERE SHA1(CONCAT(`id`, `fname`, `installed`)) = '$hash' LIMIT 1")))) $out = '<p>Aplikácia sa nenašla!</p>';
 	else if ($app['allowed'] == 0 or (!ADMIN and $app['redactors'] == 0)) $out = "<p>{$translate['apps.noperms']}</p>\n";
 	else if ($app['application'] == 0) $out = "<p>{$translate['apps.nofull']}</p>\n";
 	else {
-		if (!class_exists ('plugin')) include ('admin/includes/pluginClass.php');
-		if ($plugin = loadPlugin ($app['fname'], 'application')) {
+		if ($plugin = OpinerAutoLoader::loadPlugin ($app['fname'], 'application')) {
 			$out = HeadIfPost ($plugin -> title);
 			$out .= $plugin -> run ();
 		} else $out = "<p>{$translate['apps.loadingerror']}</p>\n";
@@ -145,10 +143,9 @@ if (!ajaxmode){
 if (isset ($_REQUEST['refresh']) and strlen ($_REQUEST['refresh']) == 40 and ADMIN) @mysql_query ("UPDATE `{$prefix}_apps` SET `cached` = 0 WHERE SHA1(CONCAT(`id`, `fname`, `installed`)) = '" . adjust ($_REQUEST['refresh']) . "' LIMIT 1");
 $sql = @mysql_query ("SELECT `id`, `fname`, `title`, `cache`, `cached` FROM `{$prefix}_apps` WHERE `allowed` = 1 AND `widget` = 1" . ((ADMIN)?'':' AND `redactors` = 1') . " ORDER BY `position` ASC");
 if ($_CONFIG['pluginsAllowed'] and (ADMIN or $_USER_INFO['plugins']) and mysql_num_rows ($sql) > 0) {
-	if (!class_exists ('plugin')) { include ('admin/includes/pluginClass.php'); };
 	while ($widget = @mysql_fetch_assoc ($sql)) {
 		if ($widget['cache'] == 1 and isset ($cache['widget_' . USERTYPE . $widget['fname']]) and $widget['cached'] > time() - 604800) @$pl .= $cache['widget_' . USERTYPE . $widget['fname']];
-		else if ($app = loadPlugin ($widget['fname'], 'widget')) {
+		else if ($app = OpinerAutoLoader::loadPlugin ($widget['fname'], 'widget')) {
 			$fullscreen = ($app -> canRun ('application')) ? ' <a href="admin.php?app=' . $app -> apphash . '" title="' . $translate['apps.full.title'] . '"><img src="admin/images/icon-fullscreen.png" /></a>' : '';
 			$settings = (ADMIN) ? ' <a href="?what=market&settings=' . $widget['id'] . '" title="' . $translate['apps.settings.title'] . '"><img src="admin/images/mSettings.png" /></a>' : '';
 			$refresh = (ADMIN and $widget['cache'] == 1) ? ' <a href="admin.php?refresh=' . $app -> apphash . '" title="' . $translate['apps.dropcache.title'] . '"><img src="admin/images/icon-move.png" /></a>' : '';
