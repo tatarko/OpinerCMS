@@ -17,7 +17,7 @@ class plugin {
 
 	public $title = 'Application';
 	public $author = 'Unknown';
-	public $url = 'http://opiner-cms.net/';
+	public $url = 'http://opiner.tatarko.sk/';
 	public $description = '(without description)';
 	public $version = '1.0';
 	protected $name;

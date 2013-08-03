@@ -7,21 +7,7 @@ $out .= '<table cellspacing="25px" width="100%"><tr><td valign="top" width="400p
 <h2>' . $translate['manual.video'] . '</h2>
 <p>' . $translate['manual.video.title'] . '</p>
 <object width="400" height="300"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=7836023&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=7836023&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="400" height="300"></embed></object>
-</td><td valign="top">
-<h2>' . $translate['manual.online'] . '</h2>
-<dl>
-	<dt><a href="http://blog.opiner-cms.net/kategoria-12-opiner-tips.html" target="_blank">' . $translate['manual.users'] . '</a></dt>
-	<dd>' . $translate['manual.users.title'] . '</dd>
-
-	<dt><a href="http://dev.opiner-cms.net/clanok-31-co-su-to-hcm-moduly.html" target="_blank">' . $translate['manual.hcm'] . '</a></dt>
-	<dd>' . $translate['manual.hcm.title'] . '</dd>
-
-	<dt><a href="http://dev.opiner-cms.net/kategoria-4-dokumentacia-hcm.html" target="_blank">' . $translate['manual.list'] . '</a></dt>
-	<dd>' . $translate['manual.list.title'] . '</dd>
-
-	<dt><a href="http://dev.opiner-cms.net/" target="_blank">' . $translate['manual.dev'] . '</a></dt>
-	<dd>' . $translate['manual.dev.title'] . '</dd>
-</dl></td></tr></table>
+</td></tr></table>
 <p><a href="admin.php?what=manual&amp;old">&raquo; ' . $translate['manual.old'] . '</a></p>';
 
 else $out .= '<a name="arts"></a>
@@ -59,7 +45,7 @@ aj keď chcete vynulovať počet prečítaní článku alebo odstrániť hodnote
 <p>Taktieť v tejto časti môžete globálne na celej stránky zapnúť komentáre, či počítadlo prečítaní článku alebo či sa má pri článkoch zobrazovať Vaše meno ako autora článku. Taktiež môžete zapnúť zaznámenavanie štatistík, či povoliť zobrazovanie odkazu na prihlasovanie sa do administrácie v pätičke.</p>
 <p>Pri tejto časti máte možnosť aj nastaviť nastavenia aplikácie Pviewer ako napríklad použitú schému, či povolenie komentárov pri obrázkoch alebo napríklad koľko obrázkov sa má zobrazovať v zoznamoch posledných a náhodných obrázkov. Špeciálne nastavenie je veľkosť obrázkov, kde nastavujete, akú šírku má mať obrázok (v pixeloch). Ak obrázok bude širší ako táto hodnota, tak obrázok bude zmenšený a uložený na server do cache. Ak nechcete, aby boli obrázky zmenšované, tak túto hodnotu nastavte na <b>0</b>.</p>
 <p>Nastaviť môžete aj názov, ktorý bude používaný na celej stránke a taktiež aj úvodný text, ktorý bude zobrazený pri zozname bleskových správ (mikroblogu).</p>
-<p>Poslednou časťou je zapnutie Mod(u) Re-Write. Ako tento modul zapnúť, to sa dozviete na naších stránkach v článku <a href="http://opiner-cms.net/clanok-18-ako-na-mod-re-write.html">Ako na Mod Re-Write</a>.</p>
+<p>Poslednou časťou je zapnutie Mod(u) Re-Write. Ako tento modul zapnúť, to sa dozviete na naších stránkach v článku <a href="http://opiner.tatarko.sk/clanok-18-ako-na-mod-re-write.html">Ako na Mod Re-Write</a>.</p>
 
 <a name="options-admin"></a>
 <h3>Administrácia</h3>

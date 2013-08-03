@@ -6,7 +6,7 @@
  * http://tatarko.sk/
  *
  * Created for: Opiner CMS
- * http://opiner-cms.net/
+ * http://opiner.tatarko.sk/
  *
  */
 

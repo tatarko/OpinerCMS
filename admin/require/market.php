@@ -157,31 +157,39 @@ while ($file = readdir ($dir)) {
 	</tr>'.n;
 	};
 };
-$out .= '</table>';
-/*'
+$out .= '</table>
 <h2>' . $translate['apps.market'] . '</h2>'.n;
-if (false !== ($xml = @simplexml_load_file ('http://friends.opiner-cms.net/cofr.php?market' . ((isset ($apps)) ? '=' . implode ('~', $apps) : '')))
+if (false !== ($xml = simplexml_load_file ('http://friends.tatarko.sk/cofr.php?market' . ((isset ($apps)) ? '=' . implode ('~', $apps) : '')))
 and isset ($xml['protocol'], $xml -> application) and $xml['protocol'] == '1.0') {
 	$tohead[] = '<style type="text/css">
 	#market { width: 100%; }
-	#market td { padding: 7px; vertical-align: top;  width: 25%; -moz-border-radius: 5px; -webkit-border-radius: 5px; background: #EDF2F9; }
+	#market td { padding: 8px 12px; vertical-align: top;  width: 25%; -moz-border-radius: 5px; -webkit-border-radius: 5px; background: #EDF2F9; }
 	#market td h3 { margin: 0; padding: 0; }
 	#market td p { margin: 0; padding: 0; }
 	#market td img { width: 48px; height: 48px; float: left; margin: 2px 8px 0 0; }
 	#market .gravatar { width: 16px; height: 16px; float: none; margin: -4px 0; }		
+	#market .meta { padding: 10px 0 5px; margin: 0; clear:left; text-align: center; font-size: 9px; }
+	#market .buttons a { margin: 0 0 0 5px; background: #7397c3 url("admin/remote/img/bg.png") repeat-x center center; border: 1px solid #396CBC; color: #fff; padding: 3px 8px; font: bold 9px Tahoma, serif; cursor: pointer; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; }
 </style>';
 	$out .= '<table id="market"><tr>'.n;
 	foreach ($xml -> application as $app) {
 		$out .= '	<td>
-		<h3><a href="' . $app -> profile . '">' . $app -> title . ' ' . $app -> version . '</a></h3>
+		<h3><a href="' . $app -> profile . '" target="_blank">' . $app -> title . ' ' . $app -> version . '</a></h3>
 		<img src="' . $app -> image . '" />
 		<p>' . $app -> description . '</p>
-		<p class="cleaner" style="padding-top:10px;"><img src="' . $app -> author -> image . '" class="gravatar" /> <a href="' . $app -> author -> url . '">' . $app -> author -> name . '</a> | ' . langrep ('apps.fans', $app -> fans) . '<br />
-		<a href="' . $app -> file . '">' . $translate['apps.download'] . '</a> | <a href="?what=market&cofr=' . $app -> file . '&amp;fname=' . $app -> fname . '">' . $translate['apps.install'] . '</p>
+		<p class="meta">
+			<img src="' . $app -> author -> image . '" class="gravatar" />
+			<a href="' . $app -> author -> url . '" target="_blank">' . $app -> author -> name . '</a>, '
+			 . langrep ('apps.installs', $app -> installed) . '
+			<span class="buttons">
+				<a href="' . $app -> file . '">' . $translate['apps.download'] . '</a>
+				<a href="?what=market&cofr=' . $app -> file . '&amp;fname=' . $app -> fname . '">' . $translate['apps.install'] . '
+			</span>
+		</p>
 	</td>'.n;
-		if (@++$i % 4 == 0) $out .= '</tr><tr>'.n;
+		if (@++$i % 3 == 0) $out .= '</tr><tr>'.n;
 	};
 	$out .= '</tr></table>';
-} else $out .= '<p>' . $translate['apps.emptymarket'] . '</p>';*/
+} else $out .= '<p>' . $translate['apps.emptymarket'] . '</p>';
 };
 ?>

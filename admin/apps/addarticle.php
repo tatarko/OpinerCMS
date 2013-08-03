@@ -6,7 +6,7 @@ class addarticleapp extends plugin {
 		$this -> title = 'Pridanie článku';
 		$this -> version = '1.0';
 		$this -> author = 'Ovalio';
-		$this -> url = 'http://opiner-cms.net/';
+		$this -> url = 'http://opiner.tatarko.sk/';
 		$this -> description = 'Pridajte si túto aplikáciu medzi widgety a budete tak môcť pridávať články ešte rýchlejšie.';
 		$this -> modes = array ('widget');
 		$this -> cache = true;

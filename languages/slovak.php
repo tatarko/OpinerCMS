@@ -760,5 +760,8 @@ lang.nfile = 'Nový súbor';
 	'gocategory'		=> 'Prejsť na kategóriu $1',
 	'redactors.needConfirm' => 'Vyžadovať schválenie článkov administrátorom',
 	'redactors.noExists'	=> 'Neexistujúci používateľ',
+	
+	// Novinky v 1.6.1
+	'apps.installs'	=> 'Používa $1 ľudí',
 );
 ?>

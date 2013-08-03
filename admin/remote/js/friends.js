@@ -1,6 +1,6 @@
 function changeStatusForm (ofhn, appname, appurl) {
 	status = $('#status').html();
-	$('#status').hide().html('<form action="http://friends.opiner-cms.net/cofr/post/' + ofhn + '" method="post" id="newstatus"></form>');
+	$('#status').hide().html('<form action="http://friends.tatarko.sk/cofr/post/' + ofhn + '" method="post" id="newstatus"></form>');
 	$('#newstatus')
 		.append('<input type="hidden" name="app" value="' + appname + '" />')
 		.append('<input type="hidden" name="appurl" value="' + appurl + '" />')
@@ -18,10 +18,10 @@ function statusBack () {
 
 function readMessage (id, hash) {
 	alert (id);
-	alert ("http://friends.opiner-cms.net/cofr.php?message=" + hash)
+	alert ("http://friends.tatarko.sk/cofr.php?message=" + hash)
 	$.ajax({
 		type: "GET",
-		url: "http://friends.opiner-cms.net/cofr.php",
+		url: "http://friends.tatarko.sk/cofr.php",
 		data: "message=" + hash,
 		success: function(data, status, xhr) {
 			alert("Load was performed." + status);

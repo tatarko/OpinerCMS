@@ -37,7 +37,7 @@ if ($info = mysql_fetch_row(mysql_query("SELECT nadpis,text,cat,UNIX_TIMESTAMP(`
 			$siteimage = strpos ($imagecat2[0], 'http://') === false ? _SiteLink . $imagecat2[0] : $imagecat2[0];
 		} else {
 			$imagelink = '';
-			$siteimage = $_CONFIG['favicon'] != '' ? _SiteLink . 'media/' . $_CONFIG['favicon'] : 'http://feedback.opiner-cms.net/article.png';
+			$siteimage = $_CONFIG['favicon'] != '' ? _SiteLink . 'media/' . $_CONFIG['favicon'] : 'http://feedback.tatarko.sk/article.png';
 		};
 		$imagend = ($imagelink != '') ? n.'<div class="cleanL"></div>' : '';
 		$comments = @mysql_fetch_row (@mysql_query ("SELECT COUNT(*) FROM {$prefix}_comments WHERE kde='clanok_$id'"));

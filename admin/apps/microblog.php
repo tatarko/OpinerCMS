@@ -7,7 +7,7 @@ class microblogapp extends plugin {
 		$this -> title = $_CONFIG['microblog_head'];
 		$this -> version = '1.0';
 		$this -> author = 'Ovalio';
-		$this -> url = 'http://opiner-cms.net/';
+		$this -> url = 'http://opiner.tatarko.sk/';
 		$this -> description = 'Rýchle správy informojúce Vašich užívateľov o novinkách všeho druhu.';
 		$this -> modes = array ('widget');
 		$this -> cache = true;
