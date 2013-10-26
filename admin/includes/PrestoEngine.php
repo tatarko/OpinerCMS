@@ -604,7 +604,7 @@ class View extends Object {
 }
 
 /**
- * View motivu
+ * View menu
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
@@ -624,7 +624,7 @@ class MenuView extends View {
 }
 
 /**
- * View motivu
+ * View layoutu
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
@@ -642,7 +642,6 @@ class LayoutView extends View {
 		return sprintf('%slayouts/%s.tpl', $this->template->path, $name);
 	}
 }
-
 
 /**
  * Menu
@@ -682,23 +681,13 @@ class Menu extends Object {
 }
 
 /**
- * View motivu
+ * Samotny template Engine
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  */
 class Engine extends Object {
-
-	/**
-	 * Pattern na odchytavanie nazvu premennych
-	 */
-	const PATTERN_VARIABLES = '([a-zA-Z0-9.]+)';
-
-	/**
-	 * Pattern na odchytavanie nazvu premennych
-	 */
-	const PATTERN_WHITESPACE = '[ \t\r\n\v\f]*';
 
 	/**
 	 * Escapovat premenne?
@@ -764,7 +753,8 @@ class Engine extends Object {
 		$this	->parseIncludes($content)
 				->parseConditions($content)
 				->parseCycles($content)
-				->parseValues($content);
+				->parseVariables($content)
+				->parseSettingVariables($content);
 
 		file_put_contents($targetFile, $content);
 	}
@@ -777,7 +767,13 @@ class Engine extends Object {
 	 */
 	protected function parseIncludes(&$content) {
 
-		while(preg_match_all(sprintf('#\{\%s@import%s([a-zA-Z0-9/]+)%s\}#', self::PATTERN_WHITESPACE, self::PATTERN_WHITESPACE, self::PATTERN_WHITESPACE), $content, $matches, PREG_SET_ORDER)) {
+		$pattern = (string)$this->pattern()
+				->put('import')
+				->whitespace()
+				->view()
+				->wrap();
+
+		while(preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
 
 			foreach($matches as $match) {
 
@@ -801,21 +797,23 @@ class Engine extends Object {
 	 * @return PrestoEngine\Engine
 	 * @suports Method-Chaining
 	 */
-	protected function parseValues(&$content) {
+	protected function parseVariables(&$content) {
 
-		if(!preg_match_all(sprintf('#\{\{%s' . self::PATTERN_VARIABLES . '(\|.+)?%s\}\}#', self::PATTERN_WHITESPACE, self::PATTERN_WHITESPACE), $content, $matches, PREG_SET_ORDER)) {
+		$pattern = $this->pattern()
+				->variable()
+				->filters()
+				->wrap('{{', '}}');
+
+		if(!preg_match_all((string)$pattern, $content, $matches, PREG_SET_ORDER)) {
 
 			return $this;
 		}
 
 		foreach($matches as $match) {
 
-			$modificators = $this->listModificators(isset($match[2]) ? $match[2] : '');
-			$this->addBasicModificators($modificators);
-
 			$content = str_replace($match[0], '<?='
-					. ' isset(' . $this->unmaskVariable($match[1]) . ')'
-					. ' ? ' . $this->unmaskVariable($match[1], $modificators) . ''
+					. ' isset(' . $this->unmaskVariable($match['variable']) . ')'
+					. ' ? ' . $this->unmaskVariable($match['variable'], $this->parseInlineFilters($match, 'filters'))
 					. ' : "" ?>', $content);
 		}
 
@@ -823,35 +821,41 @@ class Engine extends Object {
 	}
 
 	/**
-	 * Precita, ake modifikatory pouzit pre vypis premennej
-	 * @param string $where
-	 * @return string[] Zoznam modikatorov $modificatorName => $modificatorParams
+	 * Vyparsuj setovanie novych premennych
+	 * @param string $content Aktualne vyparsovany subor
+	 * @return PrestoEngine\Engine
+	 * @suports Method-Chaining
 	 */
-	protected function listModificators($where) {
+	protected function parseSettingVariables(&$content) {
 
-		$modifiers = array();
+		$pattern = $this->pattern()
+				->put('set')
+				->whitespace()
+				->variable()
+				->whitespace()
+				->put('=')
+				->whitespace()
+				->variable('newValue')
+				->filters()
+				->wrap();
 
-		if(preg_match_all('#\|(?P<name>[a-zA-Z]+)(\((?P<args>.+)\))?#', $where, $modifiersMatches, PREG_SET_ORDER)) {
+		if(!preg_match_all((string)$pattern, $content, $matches, PREG_SET_ORDER)) {
 
-			foreach($modifiersMatches as $modifierMatch) {
-
-				$modifiers[$modifierMatch['name']] = isset($modifierMatch['args']) ? $modifierMatch['args'] : null;
-			}
+			return $this;
 		}
 
-		return $modifiers;
-	}
+		foreach($matches as $match) {
 
-	/**
-	 * Prida zakladne (defaultne) modifikatory
-	 * @param array $modificators
-	 */
-	protected function addBasicModificators(array &$modificators) {
-
-		if($this->escapeHtml && !in_array('raw', $modificators)) {
-
-			$modificators['escape'] = null;
+			$content = str_replace($match[0], '<? '
+					. $this->unmaskVariable($match['variable'])
+					. ' = '
+					. $this->unmaskVariable($match['newValue'], $this->parseInlineFilters($match, 'filters'))
+					. ' ?>',
+					$content
+			);
 		}
+
+		return $this;
 	}
 
 	/**
@@ -862,7 +866,44 @@ class Engine extends Object {
 	 */
 	protected function parseConditions(&$content) {
 
-		
+		$pattern = $this->pattern()
+				->condition()
+				->whitespace()
+				->variable()
+				->filters()
+				->whitespace()
+				->compare()
+				->whitespace()
+				->variable('comparator', true)
+				->filters('comparatorFilters')
+				->wrap();
+
+		if(!preg_match_all((string)$pattern, $content, $matches, PREG_SET_ORDER)) {
+
+			return $this;
+		}
+
+		foreach($matches as $match) {
+
+			$content = str_replace($match[0], '<? ' . $match['condition'] . '('
+				. $this->unmaskVariable($match['variable'], $this->parseInlineFilters($match, 'filters'))
+				. (isset($match['compare'], $match['comparator'])
+					? ' ' . $match['compare'] . ' ' . $this->unmaskVariable($match['comparator'],
+						$this->parseInlineFilters($match, 'comparatorFilters')
+					) : '') . ') : ?>'
+				, $content);
+		}
+
+		$content = preg_replace(
+			(string)$this->pattern()->put('else')->wrap(),
+			'<? else : ?>',
+			preg_replace(
+				(string)$this->pattern()->put('endif')->wrap(),
+				'<? endif ?>',
+				$content
+			)
+		);
+
 		return $this;
 	}
 
@@ -874,29 +915,93 @@ class Engine extends Object {
 	 */
 	protected function parseCycles(&$content) {
 
-		if(!preg_match_all('#\{\% for ' . self::PATTERN_VARIABLES . ' in ' . self::PATTERN_VARIABLES . ' \%\}#', $content, $matches, PREG_SET_ORDER)) {
+		$pattern = $this->pattern()
+				->put('for ')
+				->variable('value')
+				->put(' in ')
+				->variable()
+				->filters()
+				->wrap();
+
+		if(!preg_match_all((string)$pattern, $content, $matches, PREG_SET_ORDER)) {
 
 			return $this;
 		}
 
 		foreach($matches as $match) {
 			
-			$content = str_replace($match[0], '<? if(isset(' . $this->unmaskVariable($match[2]) . ')'
-					. ' && is_array(' . $this->unmaskVariable($match[2]) . ')) :'
-					. PHP_EOL . '$thisCount = count(' . $this->unmaskVariable($match[2]) . ');'
+			$content = str_replace($match[0], '<? if(isset(' . $this->unmaskVariable($match['variable']) . ')'
+					. ' && is_array(' . $this->unmaskVariable($match['variable']) . ')) :'
+					. PHP_EOL . '$thisCount = count(' . $this->unmaskVariable($match['variable']) . ');'
 					. PHP_EOL . '$thisPosition = 0;'
-					. PHP_EOL . 'foreach(' . $this->unmaskVariable($match[2])
-					. ' as $thisKey => ' . $this->unmaskVariable($match[1]) . ') :'
+					. PHP_EOL . 'foreach(' . $this->unmaskVariable($match['variable'], $this->parseInlineFilters($match, 'filters'))
+					. ' as $thisKey => ' . $this->unmaskVariable($match['value']) . ') :'
 					. PHP_EOL . '	++$thisPosition;'
+					. PHP_EOL . '	$thisIsEven = $thisPosition % 2 == 1;'
 					. PHP_EOL . '	$thisIsEven = $thisPosition % 2 == 1;'
 					. PHP_EOL . '	$thisIsOdd = $thisPosition % 2 == 0;'
 					. PHP_EOL . '	$thisIsFirst = $thisPosition == 1;'
 					. PHP_EOL . '	$thisIsLast = $thisPosition == $thisCount; ?>', $content);
 		}
 
-		$content = str_replace('{% endfor %}', '<? endforeach; unset($thisKey, $thisPosition, $thisCount, $thisIsEven, $thisIsOdd, $thisIsFirst, $thisIsLast); endif; ?>', $content);
+		$content = preg_replace(
+			(string)$this->pattern()->put('endfor')->wrap(),
+			'<? endforeach; unset($thisKey, $thisPosition, $thisCount, $thisIsEven, $thisIsOdd, $thisIsFirst, $thisIsLast); endif; ?>',
+			$content
+		);
 
 		return $this;
+	}
+
+	/**
+	 * Vyparsuje pole konkretnych filtrov na zaklade vysledku z preg_match
+	 * @param array $row Pole vysledkov z preg_match
+	 * @param string $name Pod akym indexom ma byt ukryty string filtrov
+	 * @param boolean $addBasic Pridat zakladnu mnozinu filtrov
+	 * @return array
+	 */
+	public function parseInlineFilters(array $row, $name, $addBasic = true) {
+
+		$filters = array();
+
+		if(!isset($row[$name])) {
+
+			return $filters;
+		}
+
+		if(preg_match_all('#\|(?P<name>[a-zA-Z]+)(\((?P<args>.+)\))?#', $row[$name], $matches, PREG_SET_ORDER)) {
+
+			foreach($matches as $match) {
+
+				$filters[$match['name']] = isset($match['args']) ? $match['args'] : null;
+			}
+		}
+
+		return $addBasic ? $this->addBasicFilters($filters) : $filters;
+	}
+
+	/**
+	 * Prida zakladne (defaultne) filtre
+	 * @param array $filters Pole so zoznamom filtrov na pouzitie
+	 * @return array Obmenene pole filtrov
+	 */
+	protected function addBasicFilters(array $filters) {
+
+		if($this->escapeHtml && !isset($filters['raw'])) {
+
+			$filters['escape'] = null;
+		}
+
+		return $filters;
+	}
+
+	/**
+	 * Zacne tvorit novy pattern
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	protected function pattern() {
+
+		return new PatternBuilder;
 	}
 
 	/**
@@ -904,29 +1009,36 @@ class Engine extends Object {
 	 * @param string $variable Ktoru premennu chce odmaskovat?
 	 * @return string
 	 */
-	protected function unmaskVariable($variable, array $modificators = array()) {
+	protected function unmaskVariable($variable, array $filters = array()) {
 
-		$variable = explode('.', $variable);
-		$pattern = '$' . current($variable);
+		if(in_array(substr($variable, 0, 1), array('"', '\''))) {
 
-		foreach(array_slice($variable, 1) as $part) {
+			$pattern = $variable;
+		}
+		else {
 
-			$pattern .= sprintf('["%s"]', $part);
+			$variable = explode('.', $variable);
+			$pattern = '$' . current($variable);
+
+			foreach(array_slice($variable, 1) as $part) {
+
+				$pattern .= sprintf('["%s"]', $part);
+			}
 		}
 
-		if(empty($modificators)) {
+		if(empty($filters)) {
 
 			return $pattern;
 		}
 
 		$indent = 0;
-		unset($modificators['raw']);
-		foreach($modificators as $name => $args) {
+		unset($filters['raw']);
+		foreach($filters as $name => $args) {
 
 			$pattern = sprintf(
 				'%s%sPrestoEngine\\Helper::%s(%s%s%s)%s',
 				PHP_EOL,
-				str_repeat("\t", count($modificators) - ++$indent),
+				str_repeat("\t", count($filters) - ++$indent),
 				$name,
 				$pattern,
 				$args === null ? '' : ', ',
@@ -954,7 +1066,164 @@ class Engine extends Object {
 }
 
 /**
- * Helper (obsahujuci metody pre modificatory
+ * Builder regexp patternov
+ * @author Tomas Tatarko <tomas@tatarko.sk>
+ * @link https://github.com/tatarko/OpinerCMS
+ * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
+ * @since 1.7
+ */
+class PatternBuilder {
+
+	/**
+	 * Pattern na odchytavanie nazvu premennych
+	 */
+	const PATTERN_VARIABLE = '(?P<:::::>\'[^\']*\'|"[^"]*"|[a-zA-Z0-9.]+)';
+
+	/**
+	 * Pattern na odchytavanie filtrov
+	 */
+	const PATTERN_FILTERS = '(?P<:::::>\|.+)';
+
+	/**
+	 * Pattern na filtrovanie whitespacov
+	 */
+	const PATTERN_WHITESPACE = '[ \t\r\n\v\f]*';
+
+	/**
+	 * Pattern na zachytavanie porovnavacich znamienok
+	 */
+	const PATTERN_COMPARE = '(?P<:::::>\=|\>\=|\<\=|\!\=)';
+
+	/**
+	 * Pattern na urcovanie, aku podmienku riesime
+	 */
+	const PATTERN_CONDITION = '(?P<:::::>if|elseif)';
+
+	/**
+	 * Pattern na odchytavanie nazvu viewu na importovanie
+	 */
+	const PATTERN_VIEW = '(?P<:::::>[a-zA-Z0-9/]+)';
+
+	/**
+	 * Aktualny pattern
+	 * @var string
+	 */
+	public $pattern = '';
+
+	/**
+	 * Zachyti premennu
+	 * @param string $name Nazov odchytavaneho indexu
+	 * @param string $optional Je to len volitelny odchyt?
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	public function variable($name = 'variable', $optional = false) {
+
+		$this->pattern .= str_replace(':::::', $name, self::PATTERN_VARIABLE);
+		$this->pattern .= $optional ? '?' : '';
+		return $this;
+	}
+
+	/**
+	 * Zachytenie sposobu podmienky (if/elseif)
+	 * @param string $name Nazov odchytavaneho indexu
+	 * @param string $optional Je to len volitelny odchyt?
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	public function condition($name = 'condition', $optional = false) {
+
+		$this->pattern .= str_replace(':::::', $name, self::PATTERN_CONDITION);
+		$this->pattern .= $optional ? '?' : '';
+		return $this;
+	}
+
+	/**
+	 * Zachyti view
+	 * @param string $name Nazov odchytavaneho indexu
+	 * @param string $optional Je to len volitelny odchyt?
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	public function view($name = 'view', $optional = false) {
+
+		$this->pattern .= str_replace(':::::', $name, self::PATTERN_VIEW);
+		$this->pattern .= $optional ? '?' : '';
+		return $this;
+	}
+
+	/**
+	 * Zachyti filtre premennej
+	 * @param string $name Nazov odchytavaneho indexu
+	 * @param string $optional Je to len volitelny odchyt?
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	public function filters($name = 'filters', $optional = true) {
+
+		$this->pattern .= str_replace(':::::', $name, self::PATTERN_FILTERS);
+		$this->pattern .= $optional ? '?' : '';
+		return $this;
+	}
+
+	/**
+	 * Zachyti filtre premennej
+	 * @param string $name Nazov odchytavaneho indexu
+	 * @param string $optional Je to len volitelny odchyt?
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	public function compare($name = 'compare', $optional = true) {
+
+		$this->pattern .= str_replace(':::::', $name, self::PATTERN_COMPARE);
+		$this->pattern .= $optional ? '?' : '';
+		return $this;
+	}
+
+	/**
+	 * Zachyti premennu
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	public function whitespace() {
+
+		$this->pattern .= self::PATTERN_WHITESPACE;
+		return $this;
+	}
+
+	/**
+	 * Obali pattern do hranicnych tagov
+	 * @param string $start Cim ma pattern zacinat
+	 * @param string $end Cim ma pattern koncit
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	public function wrap($start = '{%', $end = '%}') {
+
+		$this->pattern = preg_quote($start)
+				. self::PATTERN_WHITESPACE
+				. $this->pattern
+				. self::PATTERN_WHITESPACE
+				. preg_quote($end);
+		return $this;
+	}
+
+	/**
+	 * Co ma pattern povinne obsahovat?
+	 * @param string $string
+	 * @return \PrestoEngine\PatternBuilder
+	 */
+	public function put($string) {
+
+		$this->pattern .= preg_quote($string);
+		return $this;
+	}
+
+	/**
+	 * Konvertovanie objektu na string, vrateny samotny pattern
+	 * @return string
+	 */
+	public function __toString() {
+
+		return sprintf('#%s#', $this->pattern);
+	}
+}
+
+/**
+ * Helper (obsahujuci metody pre filtre)
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
@@ -1145,6 +1414,14 @@ $template->render('index', array(
 		array(
 			'name' => 'Tomas Tatarko',
 			'born' => time()
-		)
+		),
+		array(
+			'name' => 'Tomas Tatarko',
+			'born' => time()
+		),
+		array(
+			'name' => 'Tomas Tatarko',
+			'born' => time()
+		),
 	)
 ));
