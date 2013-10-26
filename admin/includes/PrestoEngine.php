@@ -1399,29 +1399,3 @@ class Helper {
 		return urlencode($value);
 	}
 }
-
-set_exception_handler(function(\Exception $ex) {
-
-//	var_dump($ex->getTrace(), $ex->getCode(), $ex->getMessage(), $ex->getLine());
-	var_dump($ex->getCode(), $ex->getMessage(), $ex->getLine());
-});
-
-$template = new Template('presto');
-
-$template->render('index', array(
-	'message' => 'Hello world!',
-	'authors' => array(
-		array(
-			'name' => 'Tomas Tatarko',
-			'born' => time()
-		),
-		array(
-			'name' => 'Tomas Tatarko',
-			'born' => time()
-		),
-		array(
-			'name' => 'Tomas Tatarko',
-			'born' => time()
-		),
-	)
-));
