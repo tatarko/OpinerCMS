@@ -9,8 +9,8 @@ Header ('Content-Type: text/' . $type . '; charset=UTF-8');
 
 /*--- Definicie ---*/
 
-define ('in', '0012012062601');
-define ('SystemInfo', 'Opiner CMS~$~1.6 Angelina~$~Tomáš Tatarko~$~http://opiner.tatarko.sk/');
+define ('in', '001201311xx01');
+define ('SystemInfo', 'Opiner CMS~$~1.7 Lorraine~$~Tomáš Tatarko~$~http://opiner.tatarko.sk/');
 define ('n', "\n");
 $labsprojects = array (
 	'sotu'		=> 'statsontheuse',
