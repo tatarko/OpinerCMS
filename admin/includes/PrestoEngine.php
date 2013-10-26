@@ -1,5 +1,23 @@
 <?php
 
+/**
+ * PrestoEngine templatovaci engine
+ * 
+ * Tento namespace a vsetky jeho triedy
+ * vznikli za ucelom vytvorenia vlasneho
+ * templatovacie systemu pre redakcny system
+ * Opiner CMS vo verzii 1.7 a vyssej.
+ * 
+ * Co sa tyka syntaxe samotnych motivov,
+ * tak jazyk PrestoEngine v mnohych crtach
+ * vychadza zo znamejsej Twig syntaxe. Tento
+ * engine si z tejto syntaxe vybera len to najlepsie
+ * a snazi sa to vhodne integraovat.
+ * 
+ * @author Tomas Tatarko <tomas@tatarko.sk>
+ * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
+ */
 namespace PrestoEngine;
 use Exception;
 
@@ -17,6 +35,7 @@ function getPublicProperties(object $me) {
  * Zakladny objekt pre cely template engine
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  * @property array $attributes Magicka property reprezentujuca vsetky attributy daneho objektu
@@ -138,6 +157,7 @@ class Object {
  * Presto Template engine
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  * @property-read string $title Nazov motivu
@@ -405,6 +425,7 @@ class Template extends Object {
  * Author motivu
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  * @property-read string $htmlLink Html link na autora motivu
@@ -437,6 +458,7 @@ class Author extends Object {
  * Layout motivu
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  * @property PrestoEngine\Menu[] $menus Menu daneho layoutu
@@ -529,6 +551,7 @@ class Layout extends Object {
  * View motivu
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  * @property-read string $path Cesta k suboru daneho view
@@ -607,6 +630,7 @@ class View extends Object {
  * View menu
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  */
@@ -627,6 +651,7 @@ class MenuView extends View {
  * View layoutu
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  */
@@ -647,6 +672,7 @@ class LayoutView extends View {
  * Menu
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  */
@@ -684,6 +710,7 @@ class Menu extends Object {
  * Samotny template Engine
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  */
@@ -1069,6 +1096,7 @@ class Engine extends Object {
  * Builder regexp patternov
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  */
@@ -1226,6 +1254,7 @@ class PatternBuilder {
  * Helper (obsahujuci metody pre filtre)
  * @author Tomas Tatarko <tomas@tatarko.sk>
  * @link https://github.com/tatarko/OpinerCMS
+ * @license http://choosealicense.com/licenses/mit/ The MIT License
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  */
