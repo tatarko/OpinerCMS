@@ -12,7 +12,7 @@
 .title_anchor a { font-size: 17px; font-weight: normal; color: #bbb; text-decoration: none; }
 .title_anchor a:hover { color: #ddd; }
 .anchor { margin: 0 0 0 20px; }
-.anchor li { list-style-type: circle; color: #888; line-height: 1.2em; display: }
+.anchor li { list-style-type: circle; color: #888; line-height: 1.2em; }
 .anchor li a { font-size: 15px; }
 .anchor_help { display: box; }
 .anchor_help li a { color: #608fa5; text-decoration: underline; }

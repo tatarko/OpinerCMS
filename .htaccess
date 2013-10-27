@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteRule ^([a-z]*)\-([a-z0-9-]*)\.html$ %{DOCUMENT_ROOT}/?$1=$2 [L,NC,QSA]
+RewriteRule . index.php
 RewriteRule ^sitemap.xml$ %{DOCUMENT_ROOT}/media/sitemap.php [L,NC,QSA]
 
 Options -Indexes

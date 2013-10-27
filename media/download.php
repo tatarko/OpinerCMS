@@ -6,7 +6,7 @@ if(!isset($_GET['file'])
 	exit();
 };
 
-reuqire_once 'get-config.php';
+require_once 'get-config.php';
 
 if($result = @mysql_fetch_row(@mysql_query(sprintf('SELECT `id`, `file` FROM `%s_download` WHERE `id` = %d LIMIT 1', $prefix, $_GET['file'])))) {
 
