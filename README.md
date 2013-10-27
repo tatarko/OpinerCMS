@@ -28,7 +28,7 @@ Viac informácií, veci na stiahnutie, návody a mnoho iného nájdeš na ofici�
 - Pomocou prehliadača prejdite na adresu Vašej stránky.
 - Postupujte podľa krokov inštalácie.
 
-## Často kladené orázky - faq
+## Často kladené otázky - faq
 
 Otázka: Nejde mi prida obrázky do galérie, súbory na download, nefungujú gravatari...
 
