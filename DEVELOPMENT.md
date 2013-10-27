@@ -3,7 +3,7 @@
 
 ## TODO pred vydanim 1.7
 - [x] Template engine (Presto)
-- [ ] Nejaky zakladny URL router
+- [x] URL router (Fertu)
 - [ ] Pseudo MVC struktura
 - [ ] SQL query builder
 - [ ] Prepisanie frontendu
