@@ -79,6 +79,7 @@ class HttpException extends Exception {
  * @copyright Copyright &copy; 2012-2013 Tomas Tatarko
  * @since 1.7
  * @property-read Fertu\HttpRequest $request Aktivny request na server
+ * @property \PrestoEngine\Template $template Template na renderovanie
  */
 class Router extends Object {
 
@@ -93,6 +94,12 @@ class Router extends Object {
 	 * @var Fertu\HttpRequest
 	 */
 	protected $request;
+
+	/**
+	 * Setne templatovaci engine
+	 * @var \PrestoEngine\Template
+	 */
+	protected $template;
 
 	/**
 	 * Konstruktor routra
@@ -228,6 +235,24 @@ class Router extends Object {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Ziska template
+	 * @return \PrestoEngine\Template
+	 */
+	public function getTemplate() {
+
+		return $this->template;
+	}
+
+	/**
+	 * Setne template, do ktoreho sa maju renderovat veci
+	 * @param \PrestoEngine\Template $template Template na navolenie
+	 */
+	public function setTemplate(Template $template) {
+
+		$this->template = $template;
 	}
 }
 
@@ -814,6 +839,7 @@ abstract class Controller extends Object {
 	public function __construct(Router $router) {
 
 		$this->router = $router;
+		$this->template = $router->template;
 	}
 
 	/**

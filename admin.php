@@ -22,7 +22,7 @@ if(@file_exists('install.php')) {
 
 if(version_compare(PHP_VERSION, '5.3', '<')) {
 
-	chyba('nie je možné spustiť stránku - verzia PHP nie je kompatibilná');
+	throw new Exception('nie je možné spustiť stránku - verzia PHP nie je kompatibilná');
 	exit();
 }
 
@@ -31,7 +31,7 @@ require_once 'admin/includes/default-vars.php';
 
 
 // Pripojenie k MySQL
-if (!file_exists ('media/get-config.php')) exit (chyba ('Súbor media/get-config.php nenájdený!'));
+if (!file_exists ('media/get-config.php')) throw new Exception('Súbor media/get-config.php nenájdený!');
 include ('media/get-config.php');
 
 
@@ -40,7 +40,7 @@ include ('media/get-config.php');
 if (!isset ($_CONFIG['language'])) $_CONFIG['language'] = 'slovak';
 if (file_exists ("languages/{$_CONFIG['language']}.php")) {
 	include ("languages/{$_CONFIG['language']}.php");
-} else exit (chyba ('nie je možné načítať preklad systému!')); 
+} else throw new Exception('nie je možné načítať preklad systému!'); 
 
 
 
@@ -68,7 +68,7 @@ $allowedsections[] = '`id` = ' . $data['what'];
 
 
 // Kontrola premennych
-if (!file_exists ('admin/includes/default-functions.php')) exit (chyba ('Súbor admin/includes/default-functions.php nenájdený!'));
+if (!file_exists ('admin/includes/default-functions.php')) throw new Exception('Súbor admin/includes/default-functions.php nenájdený!');
 include ('admin/includes/default-functions.php');
 unset ($_GET, $_POST);
 foreach ($_REQUEST as $index => $value)
@@ -110,7 +110,7 @@ and @file_exists ("admin/require/$what.php") and (ADMIN or array_search ($what, 
 		if (array_search ($what, array ('confirm', 'articles')) === false and false !== ($concount = @mysql_fetch_row (@mysql_query ("SELECT COUNT(*) FROM `{$prefix}_clanky` WHERE `confirmed` = 0")))	and $concount[0] != 0)
 		$out .= getIcon ('warning', langrep ('toconfirm', $concount[0], '<a href="admin.php?what=confirm">' . $translate['redactors.confirm'] . '</a>'));
 
-		foreach ($labsprojects as $index => $value) {
+		foreach (System::app()->labsProjects as $index => $value) {
 			if (!isset ($_CONFIG['labs.' . $value]) and $what != 'labs')
 			$out .= getIcon ('suggestion', '<form action="admin.php?what=labs" method="post">
 			' . $translate['labs.' . $index . '.sugg'] . '<br />

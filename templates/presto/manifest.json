@@ -1,0 +1,65 @@
+{
+	"title": "Default",
+	"version": "1.0",
+	"system": "1.7",
+	"authors": [
+		{
+			"name": "Tomas Tatarko",
+			"url": "http://github.com/tatarko"
+		},
+		{
+			"name": "Ovalio",
+			"url": "http://opiner.tatarko.sk"
+		}
+	],
+	"layouts": [
+		{
+			"name": "narrow",
+			"title": "One column Narrow",
+			"menus": [
+				{
+					"type": "bar",
+					"view": "navigation"
+				}
+			]
+		},
+		{
+			"name": "wide",
+			"title": "One column Wide",
+			"menus": [
+				{
+					"type": "bar",
+					"view": "navigation"
+				}
+			]
+		},
+		{
+			"name": "left",
+			"title": "Two column (left menu)",
+			"menus": [
+				{
+					"type": "bar",
+					"view": "navigation"
+				},
+				{
+					"type": "boxes",
+					"view": "sidemenu"
+				}
+			]
+		},
+		{
+			"name": "right",
+			"title": "Two column (right menu)",
+			"menus": [
+				{
+					"type": "bar",
+					"view": "navigation"
+				},
+				{
+					"type": "boxes",
+					"view": "sidemenu"
+				}
+			]
+		}
+	]
+}

@@ -47,7 +47,7 @@ function ItemOutFormat ($text, $comments = false) {
 include ('media/get-config.php');
 if (file_exists ("languages/{$_CONFIG['language']}.php")) {
 	include ("languages/{$_CONFIG['language']}.php");
-} else exit (chyba ('nie je možné načítať preklad systému!'));
+} else throw new Exception('nie je možné načítať preklad systému!');
 Header ('content-type: text/xml; charset=UTF-8');
 if (isset ($_GET['w']) and $_GET['w'] != '') $_GET['what'] = $_GET['w'];
 if (isset ($_GET['what']) and $_GET['what'] != '') $type = GetTrueRssType ($_GET['what']); else $type = 'clanky';

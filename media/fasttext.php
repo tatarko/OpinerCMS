@@ -12,7 +12,7 @@ include_once ('get-config.php');
 // Načítanie prekladu
 if (file_exists ("../languages/{$_CONFIG['language']}.php")) {
 	include ("../languages/{$_CONFIG['language']}.php");
-} else exit (chyba ('nie je možné načítať preklad systému!'));
+} else throw new Exception('nie je možné načítať preklad systému!');
 
 
 

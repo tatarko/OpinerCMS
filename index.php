@@ -1,15 +1,6 @@
 <?php
 
-/*
-	- Opiner CMS
-	- Powered by (vytvorilo) Ovalio
-	- http://opiner.tatarko.sk/
-	- Šírené pod licenciou GNU/GPL (General Public License)
-	- Viac v súbore readme
-	- alebo manuáli v administrácií
-*/
-
-
+require_once 'admin/includes/System.php';
 
 session_start ();
 
@@ -26,52 +17,22 @@ if(@file_exists('install.php')) {
 
 if(version_compare(PHP_VERSION, '5.3', '<')) {
 
-	chyba('nie je možné spustiť stránku - verzia PHP nie je kompatibilná');
-	exit();
+	throw new Exception('nie je možné spustiť stránku - verzia PHP nie je kompatibilná');
 }
 
 if(!file_exists('codes/_functions.php')) {
 
-	chyba('nie je možné načítať súbor <kbd>codes/_functions.php</kbd>');
-	exit ();
+	throw new Exception('nie je možné načítať súbor <kbd>codes/_functions.php</kbd>');
 }
 
-require_once 'admin/includes/default-vars.php';
 require_once 'codes/_functions.php';
 
 
-
 // Pripojenie k MySQL
-if (!file_exists ('media/get-config.php')) exit (chyba ('nie je možné načítať súbor <kbd>media/get-config.php</kbd>'));
+if (!file_exists ('media/get-config.php')) throw new Exception('nie je možné načítať súbor <kbd>media/get-config.php</kbd>');
 include ('media/get-config.php');
 $title = $_CONFIG['title'];
 $sep = ' ' . $_CONFIG['sep'] . ' ';
-
-
-
-// Mobilná verzia
-if (isset ($_COOKIE['mobileview']) and $_COOKIE['mobileview'] == 'false' and !isset ($_GET['mobileview'])) define('MOBILE', false);
-else if (isset ($_GET['mobileview']) and $_GET['mobileview'] == 'false') {
-	setcookie ('mobileview', 'false', time() + 24*3600);
-	define ('MOBILE', false);
-} else if (false !== stripos ($_SERVER['HTTP_USER_AGENT'], 'mobile')
-or (isset ($_GET['mobileview']) and $_GET['mobileview'] == 'true')
-or (isset ($_COOKIE['mobileview']) and $_COOKIE['mobileview'] == 'true')) {
-	$_CONFIG['template'] = 'mobile';
-	$_CONFIG['admin_foot_link'] = 0;
-	$_CONFIG['facebooklike'] = 0;
-	$_CONFIG['twitterbutton'] = 0;
-	$_CONFIG['global_reads'] = 0;
-	$_CONFIG['global_voting'] = 0;
-	$_CONFIG['global_linkers'] = 0;
-	$_CONFIG['list_arts'] = 5;
-	$_CONFIG['list_cats'] = 5;
-	$_CONFIG['menu_last_arts'] = 5;
-	$_CONFIG['similararts'] = 0;
-	$_CONFIG['sameoldarts'] = 0;
-	setcookie ('mobileview', 'true', time() + 24*3600);
-	define ('MOBILE', true);
-} else define ('MOBILE', false);
 
 
 
@@ -79,7 +40,7 @@ or (isset ($_COOKIE['mobileview']) and $_COOKIE['mobileview'] == 'true')) {
 if (!isset ($_CONFIG['language'])) $_CONFIG['language'] = 'slovak';
 if (file_exists ("languages/{$_CONFIG['language']}.php")) {
 	include ("languages/{$_CONFIG['language']}.php");
-} else exit (chyba ('nie je možné načítať preklad systému!'));
+} else throw new Exception('nie je možné načítať preklad systému!');
 
 
 
@@ -102,60 +63,16 @@ if ((isset ($_SESSION['user']) and false !== ($_USER_INFO = @mysql_fetch_assoc (
 
 
 
-
 // Blokované IP
-if (array_search ($_SERVER['REMOTE_ADDR'], explode ("\n", str_replace (array ("\r", "\n\n"), array ("\n", "\n"), $_CONFIG['blockIP']))) !== false)
-die (header ('HTTP/1.1 403 Forbidden') . 'Forbidden');
+if (array_search ($_SERVER['REMOTE_ADDR'], explode ("\n", str_replace (array ("\r", "\n\n"), array ("\n", "\n"), $_CONFIG['blockIP']))) !== false) {
 
+	throw new Fertu\HttpException(403);
+}
 
-
-// Nacitanie desingu
-if ($template = new TemplateClass ($_CONFIG['template'])) {}
-else if ($template = new TemplateClass ('Carmen')) {}
-else exit (chyba ($translate['er1']));
-
-
-
-// Ziťovanie strany, jej existencie...
-$types = array (
-	'clanok'	=> 'clanok',
-	'kategoria'	=> 'cat',
-	'galeria'	=> 'gallery',
-	'sekcia'	=> 'sec',
-	'page'		=> 'pages',
-	'stranka'	=> 'pages',
-	'gallery'	=> 'gall',
-	'kniha'		=> 'book',
-	'archiv'	=> 'archive'
-);
-foreach ($types as $index => $fil) {
-	if (isset ($_REQUEST[$index]) and !empty ($_REQUEST[$index]))
-	$file = "codes/$fil.php";
-};
-if (!isset ($file) and isset ($_REQUEST['plugin']) and !empty ($_REQUEST['plugin'])) {
-	if ($plugin = OpinerAutoLoader::loadPlugin ($_REQUEST['plugin'], 'plugin')) {
-		$title .= $sep . $plugin -> title;
-		$out = '<h1 align="center">' . $plugin -> title . '</h1>'.n;
-		$out .= $plugin -> run ();
-		$_META['description'] = $plugin -> description;
-	} else $out = "<p>{$translate['er2']}</p>\n";
-} else if (!isset ($file)) {
-	if ($_CONFIG['homepage'] == '#') {
-		$title .= $sep . $translate['lastarts'];
-		$out = HcmParser ("[hcm]arts,,{$_CONFIG['list_arts']}[/hcm]");
-		$_META['keywords'] = $translate['lastarts.keys'];
-		$_META['description'] = $translate['lastarts.desc'];
-	} else {
-		list ($id, $seo) = @mysql_fetch_row (@mysql_query ("SELECT `id`, `seo` FROM `{$prefix}_sec` WHERE `id` = {$_CONFIG['homepage']} LIMIT 1"));
-		$_GET['sekcia'] = "$id-$seo";
-		$file = 'codes/sec.php';
-	};
-};
-if ((isset ($file) and @file_exists($file)) or isset ($out)) {
-	if (!isset ($out)) { include($file); };
-} else $out = "<h1 align=\"center\">{$translate['error']}</h1>\n<p>{$translate['wrongreq']}</p>";
-
-
+// Nacitanie routra a templatu
+System::app()->createTemplate('presto'); // !!!ACCORDINGTOCONFIG!!!
+System::app()->template->layout = 'wide'; // !!!ACCORDINGTOCONFIG!!!
+System::app()->createRouter('old'); // !!!ACCORDINGTOCONFIG!!!
 
 // Štatistiky
 if($_CONFIG['stats']
@@ -169,35 +86,36 @@ if($_CONFIG['stats']
 
 
 // Spracovanie menu
-for ($i = 1; $i <= $template->config['info']['count-menu']; ++$i) {
-	if (isset ($template->config["menu$i"])) {
-		$_TEMP = $template->config["menu$i"];
-		$jetobox = ($_TEMP['type'] == 'boxes') ? 1 : 0;
-		$jtbs = ($jetobox == 1) ? '1 OR jetobox = 0' : '0';
-		$query = @mysql_query ("SELECT text, obsah, mname FROM {$prefix}_menu WHERE kdeje = '$i' AND (jetobox = $jtbs) ORDER BY post ASC");
-		if ($jetobox == 1) {
-			if (mysql_num_rows ($query) > 0) {
-				$template->menu["menu$i"] = $_TEMP['menu-start'].n;
-				while ($info = @mysql_fetch_row ($query)) {
-					$boxid = ($info[2] == '') ? '' : ' id="menu' . $i . '_' . $info[2] . '"';
-					$template->menu["menu$i"] .= str_replace ('%ID%', $boxid, $_TEMP['box-start'].n);
-					$template->menu["menu$i"] .= str_replace ('%TITLE%', $info[0], $_TEMP['box-head']).n;
-					if ($info[1] == '<%mainmenu%>') $template->menu["menu$i"] .= $template->MainMenu ($i);
-					else if ($info[1] == '<%search%>') $template->menu["menu$i"] .= $template->GetSearchBox ($i);
-					else $template->menu["menu$i"] .= HcmParser ($info[1], $i);
-					$template->menu["menu$i"] .= $_TEMP['box-end'].n;
-				};
-				$template->menu["menu$i"] .= $_TEMP['menu-end'].n;
-			};
-		} else {
-			if ($info = @mysql_fetch_row ($query)) {
-				$template->menu["menu$i"] = $_TEMP['menu-start'].n;
-				$template->menu["menu$i"] .= ($info[1] == '<%mainmenu%>') ? $template->MainMenu ($i) : HcmParser ($info[1], $i);
-				$template->menu["menu$i"] .= $_TEMP['menu-end'].n;
-			};
-		};
-	};
-};
+$i = 0;
+foreach(System::app()->template->layout->menus as $menu) {
+
+	++$i;
+	$jetobox = $menu->type != 'bar';
+	$jtbs = ($jetobox == 1) ? '1 OR jetobox = 0' : '0';
+	$query = @mysql_query ("SELECT text, obsah, mname FROM {$prefix}_menu WHERE kdeje = '$i' AND (jetobox = $jtbs) ORDER BY post ASC");
+	if ($jetobox == 1) {
+		exit('aaa');
+		if (mysql_num_rows ($query) > 0) {
+			$template->menu["menu$i"] = $_TEMP['menu-start'].n;
+			while ($info = @mysql_fetch_row ($query)) {
+				$boxid = ($info[2] == '') ? '' : ' id="menu' . $i . '_' . $info[2] . '"';
+				$template->menu["menu$i"] .= str_replace ('%ID%', $boxid, $_TEMP['box-start'].n);
+				$template->menu["menu$i"] .= str_replace ('%TITLE%', $info[0], $_TEMP['box-head']).n;
+				if ($info[1] == '<%mainmenu%>') $template->menu["menu$i"] .= $template->MainMenu ($i);
+				else if ($info[1] == '<%search%>') $template->menu["menu$i"] .= $template->GetSearchBox ($i);
+				else $template->menu["menu$i"] .= HcmParser ($info[1], $i);
+				$template->menu["menu$i"] .= $_TEMP['box-end'].n;
+			}
+			$template->menu["menu$i"] .= $_TEMP['menu-end'].n;
+		}
+	}
+	else {
+		if($info = @mysql_fetch_row ($query)) {
+			System::app()->template->values['menu' . $i]['title'] = $info[0];
+			System::parseMenuBox($info[1], System::app()->template->values['menu' . $i]);
+		}
+	}
+}
 
 
 
@@ -213,7 +131,8 @@ if (mysql_num_rows ($sql) != 0)	{
 
 
 // Ukončenie aplikácie
-$template -> EchoTemplate ();
+System::app()->run();
+
 mysql_close();
 @file_put_contents ('store/cache/cache.php', "<?php\n\$cache = " . var_export ($cache, true) . ";\n?>");
 ?>

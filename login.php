@@ -13,7 +13,7 @@ if (@file_exists ('login/library.php') and @file_exists ('media/get-config.php')
 	if (!isset ($_CONFIG['language'])) $_CONFIG['language'] = 'slovak';
 	if (file_exists ("languages/{$_CONFIG['language']}.php")) {
 		include ("languages/{$_CONFIG['language']}.php");
-	} else exit (chyba ('nie je možné načítať preklad systému!'));
+	} else throw new Exception('nie je možné načítať preklad systému!');
 	
 	// Veci okolo prihlasovania
 	if (isset ($_POST['nickname'], $_POST['password'])) {
