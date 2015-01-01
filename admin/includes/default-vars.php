@@ -9,7 +9,7 @@ Header ('Content-Type: text/' . $type . '; charset=UTF-8');
 
 /*--- Definicie ---*/
 
-define ('in', '0012014040601');
+define ('in', '0012015010101');
 define ('SystemInfo', 'Opiner CMS~$~1.6.2 Angelina~$~Tomáš Tatarko~$~http://opiner.tatarko.sk/');
 define ('n', "\n");
 $labsprojects = array (
