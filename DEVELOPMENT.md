@@ -7,7 +7,7 @@
 - [ ] Pseudo MVC struktura
 - [ ] SQL query builder
 - [ ] Prepisanie frontendu
-- [ ] Optimalizacia databazy
+- [x] Optimalizacia databazy
 
 ## Ideas (backlog pre buducnost)
 - [ ] Abstrakcia cache

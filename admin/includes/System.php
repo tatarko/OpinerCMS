@@ -313,12 +313,11 @@ class System extends BasicObject {
 	 * @return \Fertu\Router
 	 */
 	public function createRouter($name) {
-		
 		switch($name) {
-			
 			case 'old':
 				$actions = array(
-					array('clanok-{$id:\d+}-{seo}.html', 'controller' => 'article', 'action' => 'view')
+					array('clanok-{$id:\d+}-{seo}.html', 'controller' => 'article', 'action' => 'view'),
+					array('sekcia-{$id}-{seo}.html', 'controller' => 'section', 'action' => 'view'),
 				);
 				break;
 		}
@@ -326,7 +325,6 @@ class System extends BasicObject {
 		$this->router = new Fertu\Router($actions);
 
 		if($this->template instanceof PrestoEngine\Template) {
-
 			$this->router->template = $this->template;
 		}
 
@@ -399,10 +397,23 @@ class System extends BasicObject {
 
 					case 'category':
 						$permalink = System::app()->router->createUrl(array(
-							'controller'	=> 'article',
-							'view'			=> 'category',
-							'id'			=> $item['item'],
-							'seo'			=> $item['seo_title']
+							'controller' => 'article',
+							'view' => 'category',
+							'id' => $item['item'],
+							'seo' => $item['seo_title'],
+						));
+						break;
+
+					case 'link':
+						$permalink = $item['href'];
+						break;
+
+					case 'section':
+						$permalink = System::app()->router->createUrl(array(
+							'controller' => 'section',
+							'view' => 'view',
+							'id' => $item['id'],
+							'seo' => $item['seo_title'],
 						));
 						break;
 				}
@@ -410,21 +421,11 @@ class System extends BasicObject {
 				$store_location['links'][] = array(
 					'id'	=> $item['id'],
 					'type'	=> $item['type'],
-					'id'	=> $item['id'],
-					'id'	=> $item['id'],
+					'title'	=> $item['title'],
+					'link'	=> $permalink,
 				);
 			}
- 
-			$sql = @mysql_query ("SELECT `nadpis`, `seo`, `id`, `position` FROM `{$prefix}_sec` WHERE `msec` = 0 ORDER BY `position` ASC");
-		while ($tab = @mysql_fetch_row ($sql)) {
-			$start = (isset ($_GET['sekcia'], $_TEMP['link-active']) and $_GET['sekcia'] == $tab[2] . '-' . $tab[1]) ? $_TEMP['link-active'] : $_TEMP['link-start'];
-			$array[$this->bzf($tab[3]).$this->bzf($tab[2]).'a'] = $start . '<a href="' . rwl ('sekcia', $tab[2] . '-' . $tab[1]) . '" title="' . langrep ('gosection', $tab[0]) . '">' . $tab[0] . '</a>' . $_TEMP['link-end'] . n;
-		};
-		$sql = @mysql_query ("SELECT `nadpis`, `skr`, `id`, `position` FROM `{$prefix}_cats` WHERE `inmenu` = 1 ORDER BY `position` ASC");
-		while ($tab = @mysql_fetch_row ($sql)) {
-			$start = (isset ($_GET['kategoria'], $_TEMP['link-active']) and $_GET['kategoria'] == $tab[2] . '-' . $tab[1]) ? $_TEMP['link-active'] : $_TEMP['link-start'];
-			$array[$this->bzf($tab[3]).$this->bzf($tab[2]).'b'] = $start . '<a href="' . rwl ('kategoria', $tab[2] . '-' . $tab[1]) . '" title="' . langrep ('gosection', $tab[0]) . '">' . $tab[0] . '</a>' . $_TEMP['link-end'] . n;
-		};
+
 		list ($id, $seo) = @mysql_fetch_row (@mysql_query ("SELECT `id`, `seo` FROM `{$prefix}_sec` WHERE `id` = {$_CONFIG['homepage']} LIMIT 1"));
 		$homepage = "$id-$seo";
 		$arr = array (

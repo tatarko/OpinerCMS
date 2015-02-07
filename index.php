@@ -5,31 +5,28 @@ require_once 'admin/includes/System.php';
 session_start ();
 
 if($_SERVER['HTTP_HOST'] != 'localhost') {
-
 	error_reporting(0);
 }
 
 if(@file_exists('install.php')) {
-
 	Header('Location: install.php');
 	exit();
 }
 
 if(version_compare(PHP_VERSION, '5.3', '<')) {
-
 	throw new Exception('nie je možné spustiť stránku - verzia PHP nie je kompatibilná');
 }
 
 if(!file_exists('codes/_functions.php')) {
-
 	throw new Exception('nie je možné načítať súbor <kbd>codes/_functions.php</kbd>');
 }
 
 require_once 'codes/_functions.php';
 
-
 // Pripojenie k MySQL
-if (!file_exists ('media/get-config.php')) throw new Exception('nie je možné načítať súbor <kbd>media/get-config.php</kbd>');
+if (!file_exists ('media/get-config.php')) {
+	throw new Exception('nie je možné načítať súbor <kbd>media/get-config.php</kbd>');
+}
 include ('media/get-config.php');
 $title = $_CONFIG['title'];
 $sep = ' ' . $_CONFIG['sep'] . ' ';
@@ -64,8 +61,7 @@ if ((isset ($_SESSION['user']) and false !== ($_USER_INFO = @mysql_fetch_assoc (
 
 
 // Blokované IP
-if (array_search ($_SERVER['REMOTE_ADDR'], explode ("\n", str_replace (array ("\r", "\n\n"), array ("\n", "\n"), $_CONFIG['blockIP']))) !== false) {
-
+if(in_array($_SERVER['REMOTE_ADDR'], preg_split('/[\n\r]+/', $_CONFIG['blockIP']))) {
 	throw new Fertu\HttpException(403);
 }
 
@@ -75,9 +71,7 @@ System::app()->template->layout = 'wide'; // !!!ACCORDINGTOCONFIG!!!
 System::app()->createRouter('old'); // !!!ACCORDINGTOCONFIG!!!
 
 // Štatistiky
-if($_CONFIG['stats']
-		&& !preg_match('#(google|jyxo|seznam|slurp|crawler|bot)#', strtolower($_SERVER['HTTP_USER_AGENT']))) {
-
+if($_CONFIG['stats'] && !preg_match('#(google|jyxo|seznam|slurp|crawler|bot)#', strtolower($_SERVER['HTTP_USER_AGENT']))) {
 	@mysql_query ("INSERT INTO `{$prefix}_hits` VALUES ('0','{$_SERVER["REMOTE_ADDR"]}','?{$_SERVER['QUERY_STRING']}',NOW(),'{$_SERVER['HTTP_USER_AGENT']}')");
 	if (!@mysql_fetch_row (mysql_query ("SELECT id FROM `{$prefix}_visits` WHERE `browser` = '{$_SERVER['HTTP_USER_AGENT']}' AND `ip` = '{$_SERVER["REMOTE_ADDR"]}' AND `kedy` >= SUBDATE(NOW(),INTERVAL 15 MINUTE)")))
 	@mysql_query("INSERT INTO `{$prefix}_visits` VALUES ('0','{$_SERVER["REMOTE_ADDR"]}',NOW(),'{$_SERVER['HTTP_USER_AGENT']}')");
@@ -86,9 +80,7 @@ if($_CONFIG['stats']
 
 
 // Spracovanie menu
-$i = 0;
-foreach(System::app()->template->layout->menus as $menu) {
-
+foreach(System::app()->template->layout->menus as $i => $menu) {
 	++$i;
 	$jetobox = $menu->type != 'bar';
 	$jtbs = ($jetobox == 1) ? '1 OR jetobox = 0' : '0';

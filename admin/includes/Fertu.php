@@ -192,8 +192,8 @@ class Router extends Object {
 	 * @return \Fertu\Router Instancia sameho seba
 	 * @support Method-Chaining
 	 */
-	public function makeControllerAction($pattern, array $params = array()) {
-
+	public function makeControllerAction($pattern, array $params = array())
+	{
 		$action = new ControllerAction($this, $pattern);
 		$action->attributes = $params;
 		return $this->addAction($action);
@@ -622,16 +622,16 @@ class ControllerAction extends FertuAction {
 	const CONTROLLER_RELATIVE_PATH = 'admin/frontend/%s.php';
 
 	/**
-	 * Cesta ku controllerom aplikacie
-	 * @var string
-	 */
-	protected $controllersPath;
-
-	/**
 	 * Router, ktoru je tento analyzator akcii pripradeny
 	 * @var Fertu\Router
 	 */
 	protected $router;
+
+	/**
+	 * Pattern rule for this action
+	 * @var string
+	 */
+	protected $rule;
 
 	/**
 	 * Pattern, na zaklade ktoreho sa budu vyhodnocovat adresy
@@ -670,9 +670,9 @@ class ControllerAction extends FertuAction {
 	 */
 	public function __construct(Router $router, $pattern = '') {
 
-		$this->router			= $router;
-		$this->pattern			= $this->preparePattern($pattern);
-		$this->controllersPath	= $router->request->appUrl . self::CONTROLLER_RELATIVE_PATH;
+		$this->router = $router;
+		$this->rule = $pattern;
+		$this->pattern = $this->preparePattern($pattern);
 	}
 
 	/**
@@ -699,8 +699,30 @@ class ControllerAction extends FertuAction {
 		return false;
 	}
 
-	public function createUrl(array $params) {
-		
+	public function createUrl(array $params)
+	{
+		if(!preg_match_all('/{\$?(\w+)(:([^}]*))?}/', $this->rule, $matches, PREG_SET_ORDER)) {
+			return null;
+		}
+
+		$r = array();
+		foreach($matches as $match) {
+			list($mark, $key) = $match;
+			if(!isset($params[$key])) {
+				return null;
+			}
+
+			$r[$mark] = $params[$key];
+			unset($params[$key]);
+		}
+
+		unset($params['view'], $params['controller']);
+		$url = str_replace(array_keys($r), array_values($r), $this->rule);
+		if(!empty($params)) {
+			$url .= '?' . http_build_query($params);
+		}
+
+		return $url;
 	}
 
 	public function execute() {
@@ -751,8 +773,8 @@ class ControllerAction extends FertuAction {
 	 */
 	protected function prepareController() {
 
-		$classname	= ucfirst($this->controller);
-		$filename	= sprintf($this->controllersPath, $classname);
+		$classname = ucfirst($this->controller);
+		$filename = sprintf($this->router->request->appUrl . self::CONTROLLER_RELATIVE_PATH, $classname);
 
 		if(!file_exists($filename)) {
 
